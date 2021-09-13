@@ -1,0 +1,51 @@
+baseURL = "https://drop1.neilhanlon.me:1313/"
+languageCode = "en-US"
+title = "Neil Hanlon"
+# Enable comments by entering your Disqus shortname
+disqusShortname = ""
+# Enable Google Analytics by entering your tracking code
+googleAnalytics = ""
+theme = "hugo-sustain"
+
+[permalinks]
+  post = "/:year/:month/:day/:slug"
+
+[params]
+  avatar = "img/profile.png"
+  author = "Neil Hanlon"
+  description = "Neil Hanlon - Senior Network/DevOps/Infrastructure Engineer"
+
+  # Custom assets can be linked with their paths relative to static/
+  custom_css = []
+  custom_scss = ['sass/overrides.scss']
+  custom_js  = []
+
+[params.social]
+  Github        = "NeilHanlon"
+  Email         = "neil@shrug.pw.com"
+  Twitter       = "NeilHanlon"
+  LinkedIn      = "hanlonneil"
+  #Stackoverflow = "username"
+  #Medium        = "hanlon.neil"
+  Instagram     = "noellathekitty"
+
+[params.volunteer]
+  Rocky         = "https://rockylinux.org"
+
+
+## Main Menu
+[[menu.main]]
+  name = "posts"
+  weight = 100
+  identifier = "posts"
+  url = "/posts/"
+[[menu.main]]
+  name = "projects"
+  identifier = "projects"
+  weight = 200
+  url = "/projects/"
+[[menu.main]]
+  name = "resume"
+  identifier = "resume"
+  weight = 300
+  url = "/resume.pdf"

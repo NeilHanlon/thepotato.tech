@@ -1,0 +1,6 @@
+name: Projects
+source:
+  - icon: fa fa-github
+    name: Rocky Linux
+    description: All the infrastructure for Rocky Linux, from soup to nuts. Work with a team of professionals to architect, design, and implement secure systems and proceudres to write Infrastructure as Code to provide systems for the various teams within the Rocky Enterprise Software Foundation, especially Rocky Linux as it gets off the ground. Also work closely with Release Engineering on building next generation Build Automation pipeline tools and ensuring reliability and security in the supply chain.
+    url: https://github.com/rocky-linux/

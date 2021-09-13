@@ -1,0 +1,18 @@
+$primary-color: #ABC9E3;
+$hover-color: #5E7191;
+
+html, body {
+	border-top-color: $primary-color;
+}
+div.footer {
+	border-bottom-color: $primary-color;
+}
+.container a {
+	color: $primary-color;
+}
+.container a:hover {
+	color: $hover-color;
+}
+.panel-default h4 a, h5 a {
+	color: $primary-color;
+}
