@@ -1,5 +1,5 @@
 #baseURL = "https://drop1.neilhanlon.me:1313/"
-baseURL = "/neilhanlon.me/"
+baseURL = "/"
 languageCode = "en-US"
 title = "Neil Hanlon"
 # Enable comments by entering your Disqus shortname
