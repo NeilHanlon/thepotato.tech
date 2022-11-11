@@ -14,7 +14,7 @@ pipeline:
       - hugo
 
   publish:
-    image: registry.gitlab.com/pages/hugo/hugo_extended:latest
+    image: ubuntu:latest
     commands:
       - bash deploy.sh
       
