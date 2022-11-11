@@ -1,0 +1,20 @@
+---
+branches: main
+
+clone:
+  git:
+    image: woodpeckerci/plugin-git
+    settings:
+      recursive: true
+
+pipeline:
+  build:
+    image: registry.gitlab.com/pages/hugo/hugo_extended:latest
+    commands:
+      - hugo
+
+  publish:
+    image: ubuntu-latest
+    commands:
+      - ./deploy.sh
+      
