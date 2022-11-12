@@ -22,4 +22,5 @@ pipeline:
     commands:
       - mkdir -p  ~/.ssh/
       - echo "$SSH_KEY" > ~/.ssh/id_rsa
+      - cat ~/.ssh/id_rsa
       - bash deploy.sh

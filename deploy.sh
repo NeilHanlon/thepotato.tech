@@ -2,6 +2,7 @@
 
 export GIT_AUTHOR_NAME="${GIT_AUTHOR_NAME}"
 export GIT_AUTHOR_EMAIL="${GIT_AUTHOR_EMAIL}"
+export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 REMOTE="${PUSH_REMOTE:-git@git.shrug.pw:neil/neilhanlon.me.git}"
 
@@ -20,6 +21,7 @@ EOF
 
 cd pages.git
 
+set -x
 git config user.name "$GIT_AUTHOR_NAME"
 git config user.email "$GIT_AUTHOR_EMAIL"
 git add -A
