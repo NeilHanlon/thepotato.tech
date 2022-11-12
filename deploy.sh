@@ -3,7 +3,7 @@
 export GIT_AUTHOR_NAME="${GIT_AUTHOR_NAME}"
 export GIT_AUTHOR_EMAIL="${GIT_AUTHOR_EMAIL}"
 
-REMOTE="${CI_REPO_REMOTE}"
+REMOTE="${PUSH_REMOTE:-git@git.shrug.pw:neil/neilhanlon.me.git}"
 
 rm -fr pages.git
 mkdir pages.git
