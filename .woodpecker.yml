@@ -14,7 +14,7 @@ pipeline:
       - hugo
 
   publish:
-    image: ubuntu:latest
+    image: git.shrug.pw/neil/containers/woodpecker-ci:latest
     commands:
       - bash deploy.sh
       
