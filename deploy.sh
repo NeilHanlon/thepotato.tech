@@ -1,5 +1,8 @@
 #!/bin/bash -ex
 
+export GIT_AUTHOR_NAME="${GIT_AUTHOR_NAME}"
+export GIT_AUTHOR_EMAIL="${GIT_AUTHOR_EMAIL}"
+
 REMOTE=$(git remote get-url origin)
 
 rm -fr pages.git
