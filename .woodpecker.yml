@@ -20,5 +20,6 @@ pipeline:
       - GIT_AUTHOR_NAME="Woody the Woodpecker"
       - GIT_AUTHOR_EMAIL=ci@shrug.pw
     commands:
-      - eho "$SSH_KEY" > ~/.ssh/id_rsa
+      - mkdir -p  ~/.ssh/
+      - echo "$SSH_KEY" > ~/.ssh/id_rsa
       - bash deploy.sh
