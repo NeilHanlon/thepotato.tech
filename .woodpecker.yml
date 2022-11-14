@@ -41,4 +41,5 @@ pipeline:
       - bash deploy.sh
     when:
       branch: main
+      event: [push]
 
