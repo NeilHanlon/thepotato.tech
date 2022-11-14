@@ -13,6 +13,20 @@ pipeline:
     commands:
       - hugo
 
+  preview:
+    image: woodpeckerci/plugin-surge-preview
+    secrets: [SURGE_TOKEN, SURGE_GITEA]
+    settings:
+      path: public
+      surge_token:
+        from_secret: SURGE_TOKEN
+      forge_type: gitea
+      forge_url: https://git.shrug.pw
+      forge_repo_token: 
+        from_secret: SURGE_GITEA
+    when:
+      event: pull_request
+
   publish:
     image: git.shrug.pw/neil/containers/woodpecker-ci:latest
     secrets: [ssh_key]
@@ -25,3 +39,6 @@ pipeline:
       - chmod 0700 ~/.ssh/
       - chmod 0600 ~/.ssh/id_rsa
       - bash deploy.sh
+    when:
+      branch: main
+
