@@ -1,6 +1,16 @@
 ---
 branches: main
 
+variables:
+  surge_settings: &surge_settings
+    path: public
+    surge_token:
+      from_secret: SURGE_TOKEN
+    forge_type: gitea
+    forge_url: https://git.shrug.pw
+    forge_repo_token: 
+      from_secret: SURGE_GITEA
+
 clone:
   git:
     image: woodpeckerci/plugin-git
@@ -16,16 +26,18 @@ pipeline:
   preview:
     image: woodpeckerci/plugin-surge-preview
     secrets: [SURGE_TOKEN, SURGE_GITEA]
-    settings:
-      path: public
-      surge_token:
-        from_secret: SURGE_TOKEN
-      forge_type: gitea
-      forge_url: https://git.shrug.pw
-      forge_repo_token: 
-        from_secret: SURGE_GITEA
+    settings: *surge_settings
     when:
       event: pull_request
+
+  teardown-preview:
+    image: woodpeckerci/plugin-surge-preview
+    secrets: [SURGE_TOKEN, SURGE_GITEA]
+    settings: *surge_settings
+    environment:
+      - CI_BUILD_EVENT=pull_close
+    when:
+      event: push
 
   publish:
     image: git.shrug.pw/neil/containers/woodpecker-ci:latest
