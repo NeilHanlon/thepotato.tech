@@ -37,7 +37,7 @@ pipeline:
     environment:
       - CI_BUILD_EVENT=pull_close
     when:
-      event: push
+      event: pull_close
 
   publish:
     image: git.shrug.pw/neil/containers/woodpecker-ci:latest
