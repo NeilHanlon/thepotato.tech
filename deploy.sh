@@ -29,7 +29,6 @@ git commit -m "Deployment at $(date -u -Is)"
 git remote add origin $REMOTE
 git push -f origin pages
 
-sleep 1m
 curl -X POST --fail \
   -F token=glptt-726b7e0e1a566629fff9e0e4a578fe74b7aca40e \
   -F ref=main \
