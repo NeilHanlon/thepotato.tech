@@ -19,6 +19,8 @@ hanlon.ninja
 thepotato.tech
 EOF
 
+cp .woodpecker.yml pages.git/
+
 cd pages.git
 
 set -x
