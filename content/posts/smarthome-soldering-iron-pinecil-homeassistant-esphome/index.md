@@ -118,7 +118,9 @@ to consume less energy than classic Bluetooth. There is upcoming support in
 browser APIs to allow access to BLE devices, and so there are a handful of
 options for how to get your Pinecil talking to your computer.
 
-## PineSAM and Joric's UI
+## Interacting with your Pinecil over Bluetooth
+
+### PineSAM (Pinecil Settings and Menus) by [Builder555](https://github.com/builder555)
 
 PineSAM (Pinecil Settings and Menus) started out as an in-browser way to see and
 change settings. It's served a multitude of uses from helping people with
@@ -129,16 +131,6 @@ component running locally--along with a machine that has bluetooth. You can find
 the source code for PineSAM on [GitHub](https://github.com/builder555/PineSAM/).
 
 {{< figure src="pinesam.png" alt="PineSAM UI" class="inline" >}}
-
-Another project is a more simple web UI that uses in-browser Bluetooth support
-(currently only really well supported in Chromium/Firefox, and even then it's
-not universal or without bugs. This UI shows a nice graph of your Pinecil's
-temperature and power supply information, but is limited to devices supporting
-WebBLE, and also is only able to change the set point (temperature) on the
-device. You can also find the source code for Joric UI on
-[GitHub](https://github.com/joric/pinecil).
-
-{{< figure src="joric-ui.png" alt="Joric's UI" class="inline-60 right" >}}
 
 PineSAM allows the user to not only see the live temperature, wattage, and
 voltage of their device but change the settings and temperatures at a click.
@@ -152,14 +144,26 @@ inspiration from Joric's UI. Due to this, it's likely these two projects will
 end up combining into one, in my opinion, despite their distinct mechanisms for
 retrieving BLE data from the Pinecil.
 
-### Setting up PineSAM
+#### Setting up PineSAM
 
 See the
 [project readme](https://github.com/builder555/PineSAM#i-using-pre-made-binaries)
 for the most up-to-date instructions. If you run into any trouble, come find us
 in the #pinecil channel on Pine64's Discord or Telegram chat.
 
-### Setting up Joric's UI
+### [Joric](https://github.com/joric/)'s BLE API
+
+Another project is a more simple web UI that uses in-browser Bluetooth support
+(currently only really well supported in Chromium/Firefox, and even then it's
+not universal or without bugs. This UI shows a nice graph of your Pinecil's
+temperature and power supply information, but is limited to devices supporting
+WebBLE, and also is only able to change the set point (temperature) on the
+device. You can also find the source code for Joric UI on
+[GitHub](https://github.com/joric/pinecil).
+
+{{< figure src="joric-ui.png" alt="Joric's UI" class="inline-60 right" >}}
+
+#### Setting up Joric's UI
 
 No setup needed! Just browse to
 [https://joric.github.io/pinecil/](https://joric.github.io/pinecil/) in a
