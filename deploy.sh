@@ -30,6 +30,6 @@ git remote add origin $REMOTE
 git push -f origin pages
 
 curl -X POST --fail \
-  -F token=glptt-726b7e0e1a566629fff9e0e4a578fe74b7aca40e \
+  -F token=$GITLAB_DEPLOY_TOKEN \
   -F ref=main \
   https://gitlab.com/api/v4/projects/29559707/trigger/pipeline
