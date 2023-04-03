@@ -104,9 +104,8 @@ instructions in the repository.
 
 ### Pineflash
 
-[Spagett1](https://github.com/Spagett1) is working on a new tool which allows
-for a non-command-line experience for flashing new versions of IronOS on the
-Pinecil, similar to the Pine64 updater utility for the v1 Pinecil. You can find
+[Spagett1](https://github.com/Spagett1) updated their Pineflash tool which allows
+for a non-command-line experience for flashing new versions of IronOS on the Pinecil V1 and V2, similar to the Pine64 updater (add link) utility for the v1 Pinecil. You can find
 more information on the PineFlash
 [GitHub repo](https://github.com/Spagett1/PineFlash). Feel free to check it out
 and give them feedback!
