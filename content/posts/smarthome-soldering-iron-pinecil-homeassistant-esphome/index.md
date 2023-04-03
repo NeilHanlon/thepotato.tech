@@ -32,6 +32,15 @@ using an [ESP32](https://www.espressif.com/en/products/socs/esp32) and
 visualize your soldering statistics, to automatically turn on an exhaust fan
 when you start working.
 
+### Acknowledgements
+
+- [Ben Brown (Ralim)](https://github.com/ralim) - Maintainer and developer of IronOS for Pinecil and Miniware Irons
+  - Support them on [Ko-fi](https://ko-fi.com/ralim)
+- River-Mochi for reviewing this article and their excellent organization and documentation work for Pine64 and the Pinecil.
+- [TomW1605](https://github.com/TomW1605) & [ithinkido](https://github.com/ithinkido) for their work on the implementation of the Pinecil ESP32 integration
+- [Builder555](https://github.com/builder555) - PineSAM maintainer and developer
+- [Joric](https://github.com/joric) - Developer of original BLE GATT application for Pinecil
+
 ## The Pinecil
 
 The [Pinecil](https://www.pine64.org/pinecil/) is an open-source soldering iron
@@ -129,7 +138,7 @@ cracked or non-functional screens, all the way to adding really helpful
 accessibility features to those who struggle to read the small screen on the
 Pinecil. It's is a Python and Vue-based application that has to have a server
 component running locally--along with a machine that has bluetooth. You can find
-the source code for PineSAM on [GitHub](https://github.com/builder555/PineSAM/).
+the source code for PineSAM on [GitHub](https://github.com/builder555/PineSAM/), but read on below for how to grab precompiled versions of the application.
 
 {{< figure src="pinesam.png" alt="PineSAM UI" class="inline" >}}
 
@@ -138,7 +147,7 @@ voltage of their device but change the settings and temperatures at a click.
 Uniquely, it allows users to set temperature presets for one-click changes
 between temperatures--for example to switch between leaded and unleaded solder.
 
-You can access PineSAM from your mobile device once it's running on your computer to have a touch-capable way of controlling your settings.
+You can access PineSAM from your mobile device once it's running on your computer to have a touch-capable way of controlling your settings. On your phone, flip the screen to portait mode in order to see the graph as on desktop.
 
 {{< figure src="pinesam-mobile.png" alt="Screenshot of PineSAM UI on Mobile device" class="inline-40 left" >}}
 
