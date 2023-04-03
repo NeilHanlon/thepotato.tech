@@ -36,7 +36,7 @@ when you start working.
 
 - [Ben Brown (Ralim)](https://github.com/ralim) - Maintainer and developer of IronOS for Pinecil and Miniware Irons
   - Support them on [Ko-fi](https://ko-fi.com/ralim)
-- River-Mochi for reviewing this article and their excellent organization and documentation work for Pine64 and the Pinecil.
+- [River-Mochi](https://github.com/river-mochi) for reviewing this article and their excellent organization and documentation work for Pine64 and the Pinecil.
 - [TomW1605](https://github.com/TomW1605) & [ithinkido](https://github.com/ithinkido) for their work on the implementation of the Pinecil ESP32 integration
 - [Builder555](https://github.com/builder555) - PineSAM maintainer and developer
 - [Joric](https://github.com/joric) - Developer of original BLE GATT application for Pinecil
