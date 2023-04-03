@@ -185,7 +185,7 @@ soldering iron using Pinecil with Home Assistant and ESPHome.
 {{< figure src="hass-soldering.png" alt="Home Assistant Soldering UI" class="inline" >}}
 
 To make this work, we'll use an
-[ESPHome configuration file]((https://github.com/TomW1605/esphome_pinecilv2_ble/blob/main/esphome_pinecilv2_ble.yaml))
+[ESPHome configuration file](https://github.com/TomW1605/esphome_pinecilv2_ble/blob/main/esphome_pinecilv2_ble.yaml)
 put together by Pine64 community member TomW1605. Thank you again, Tom!
 
 ## Requirements
