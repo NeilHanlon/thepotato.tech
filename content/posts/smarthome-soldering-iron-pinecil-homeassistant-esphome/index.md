@@ -36,6 +36,7 @@ when you start working.
 
 - [Ben Brown (Ralim)](https://github.com/ralim) - Maintainer and developer of IronOS for Pinecil and Miniware Irons
   - Support them on [Ko-fi](https://ko-fi.com/ralim)
+- [Gamiee (Gamelaster)](https://github.com/gamelaster) - Developer and maintainer of pine64_updater, IronOS
 - [River-Mochi](https://github.com/river-mochi) for reviewing this article and their excellent organization and documentation work for Pine64 and the Pinecil.
 - [TomW1605](https://github.com/TomW1605) & [ithinkido](https://github.com/ithinkido) for their work on the implementation of the Pinecil ESP32 integration
 - [Builder555](https://github.com/builder555) - PineSAM maintainer and developer
@@ -66,6 +67,8 @@ a genuine Pinecil, and how to avoid fakes.
   tricks, as well as up to date purchasing and troubleshooting information.
   - Shout out to River-Mochi for their _awesome_ work on keeping this up to date
     and useful
+- [Pine64 Updater](https://github.com/pine64/pine64_updater) - v1 Pinecil updater tool
+- [Pinecil Development Projects](https://wiki.pine64.org/wiki/Pinecil#Development_Projects) - Updated links to all community projects
 
 ## Blisp
 
