@@ -101,17 +101,31 @@ instructions in the repository.
 
 1. Find the latest sucessful actions run on the ironos repo
    [here](https://github.com/Ralim/IronOS/actions/workflows/push.yml?query=branch%3Adev+event%3Apush).
-2. Download the `Pinecilv2_multi-lang` binary for that run, and unzip it
+2. Download the `Pinecilv2` zip file for that run, and unzip it
 3. Plug your Pinecil into your computer while holding down the 'Minus' (-)
    button. The screen should **not** turn on. If on Linux, `dmesg` should report
    seeing the BL706 as a serial device.
 4. Run the following command to flash the firmware to your Pinecil:
    ```
-   blisp write -c bl70x --reset /path/to/Pinecilv2_multi-lang/Pinecilv2_EN.bin
+   blisp write -c bl70x --reset /path/to/Pinecilv2_extracted/Pinecilv2_EN.bin
    ```
 5. Un-plug and plug the Pinecil back in to boot the new firmware
 
-### Pineflash
+NOTE: You may ignore the .dfu and .hex files provided in the .zip file.
+
+##### Pinecilv2 vs Pinecilv2_multi-lang
+
+Two variants of firmwares for Pinecil are provided: combined mutli-language binaries, and individual per-language binaries. The per-language binaries are much smaller, and while the Pinecilv2 has more flash available to store the mutli-language images, for general usage, you will have an easier time with the language-specific binary rather than the multi-lang binaries.
+
+Multi-lang provides three bundles of languages:
+
+1. Chinese and Japanese
+2. Russian, Ukranian, Serbian, and Bulgarian
+3. European (All not mentioned above)
+
+Ultimately, it is up to you which you decide to use
+
+#### Pineflash
 
 [Spagett1](https://github.com/Spagett1) updated their Pineflash tool which allows
 for a non-command-line experience for flashing new versions of IronOS on the Pinecil V1 and V2, similar to the Pine64 updater (add link) utility for the v1 Pinecil. You can find
