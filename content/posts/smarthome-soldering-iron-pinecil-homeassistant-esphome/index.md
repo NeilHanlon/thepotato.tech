@@ -110,6 +110,8 @@ more information on the PineFlash
 [GitHub repo](https://github.com/Spagett1/PineFlash). Feel free to check it out
 and give them feedback!
 
+Pineflash supports Linux and MacOS at this time (2023-04-03), and support for Windows is a work in progress. If you would like to help test, please join the chat and make yourself known.
+
 ## Bluetooth Low Energy
 
 Bluetooth Low Energy (BLE) is a wireless communication protocol that is designed
@@ -119,7 +121,7 @@ options for how to get your Pinecil talking to your computer.
 
 ## Interacting with your Pinecil over Bluetooth
 
-### PineSAM (Pinecil Settings and Menus) by [Builder555](https://github.com/builder555)
+### PineSAM by [Builder555](https://github.com/builder555)
 
 PineSAM (Pinecil Settings and Menus) started out as an in-browser way to see and
 change settings. It's served a multitude of uses from helping people with
@@ -135,6 +137,8 @@ PineSAM allows the user to not only see the live temperature, wattage, and
 voltage of their device but change the settings and temperatures at a click.
 Uniquely, it allows users to set temperature presets for one-click changes
 between temperatures--for example to switch between leaded and unleaded solder.
+
+You can access PineSAM from your mobile device once it's running on your computer to have a touch-capable way of controlling your settings.
 
 {{< figure src="pinesam-mobile.png" alt="Screenshot of PineSAM UI on Mobile device" class="inline-40 left" >}}
 
