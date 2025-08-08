@@ -72,6 +72,14 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/" \
             --cacheDir "${{ runner.temp }}/hugo_cache"
+      - name: Create CNAME file
+        run: |
+          cat << EOF > public/CNAME
+          neilhanlon.me
+          neilhanlon.com
+          hanlon.ninja
+          thepotato.tech
+          EOF
       - name: Cache Save
         id: cache-save
         uses: actions/cache/save@v4
