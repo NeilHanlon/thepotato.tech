@@ -1,6 +1,30 @@
 name: Projects
 source:
-  - icon: fa fa-github
+  - icon: fa-solid fa-building
+    name: Rocky Enterprise Software Foundation
+    description: Board member for the non-profit foundation behind Rocky Linux. Focus on strategic governance, financial oversight, and advancing the mission of community-driven enterprise Linux distribution development.
+    url: https://rockylinux.org/about
+  - icon: fa-brands fa-github
     name: Rocky Linux
-    description: All the infrastructure for Rocky Linux, from soup to nuts. Work with a team of professionals to architect, design, and implement secure systems and proceudres to write Infrastructure as Code to provide systems for the various teams within the Rocky Enterprise Software Foundation, especially Rocky Linux as it gets off the ground. Also work closely with Release Engineering on building next generation Build Automation pipeline tools and ensuring reliability and security in the supply chain.
+    description: Infrastructure architect and core team member for Rocky Linux. Built and maintain all infrastructure from bare metal to cloud services, including CI/CD pipelines, build systems, and supply chain security. Work closely with Release Engineering on next-generation build automation and ensuring security throughout the software supply chain.
     url: https://github.com/rocky-linux/
+  - icon: fa-solid fa-code-branch
+    name: OpenELA
+    description: Technical Steering Committee member for OpenELA, the Open Enterprise Linux Association. Help guide technical strategy and governance for collaborative development of enterprise Linux distributions, focusing on open source supply chain transparency and community collaboration.
+    url: https://openela.org/
+  - icon: fa-solid fa-heart
+    name: ResolveX
+    description: Board member and technical advisor for ResolveX, building software and data solutions for crisis call centers including 988 suicide prevention lines and mental health resources. Provide strategic guidance on scaling infrastructure and technology decisions for mission-critical systems.
+    url: https://resolvex.com/
+  - icon: fa-solid fa-handshake
+    name: Shrug PW Consulting
+    description: Founder and Principal Consultant providing infrastructure architecture, DevOps automation, and technical advisory services. Specialize in scaling systems for mission-driven organizations, supply chain security, and building reliable infrastructure on constrained budgets.
+    url: https://shrugpw.com/
+  - icon: fa-brands fa-fedora
+    name: Fedora Project
+    description: Active contributor to Fedora RISC-V SIG and Community Operations (CommOps). Work on infrastructure, packaging ecosystem, build systems, and community tooling. Focus on RISC-V architecture support and community infrastructure reliability.
+    url: https://fedoraproject.org/
+  - icon: fa-solid fa-cloud
+    name: OpenStack
+    description: Core reviewer for OpenStack-Ansible and contributor to OpenStack-Kolla projects. Support OpenStack integration with Rocky Linux and work in CentOS NFV and Cloud SIGs. Focus on deployment automation, bare metal provisioning, and enterprise Linux integration.
+    url: https://openstack.org/

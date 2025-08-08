@@ -1,0 +1,25 @@
+{{ define "main" }}
+  <!-- Header -->
+  {{ partial "header" . }}
+
+  <div class="container">
+    <section id="projects">
+      <h4 class="my-5">{{ .Site.Data.projects.name }}</h4>
+      <div class="row">
+        {{ range $el := .Site.Data.projects.source }}
+          <div class="col-md-6 mb-4">
+            <div class="project-card">
+              <div class="project-header">
+                <i class="{{ .icon }} project-icon"></i>
+                <h5 class="project-title">
+                  <a href="{{ .url }}" target="_blank">{{ $el.name }}</a>
+                </h5>
+              </div>
+              <p class="project-description">{{ $el.description }}</p>
+            </div>
+          </div>
+        {{ end }}
+      </div>
+    </section>
+  </div>
+{{ end }}

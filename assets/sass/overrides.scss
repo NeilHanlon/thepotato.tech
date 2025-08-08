@@ -2,6 +2,7 @@
 $primary-color: #115c9e;
 $hover-color: #5E7191;
 
+
 html, body {
 	border-top-color: $primary-color;
 }
@@ -72,4 +73,59 @@ h5 {
   content: "";
   clear: both;
   display: table;
+}
+
+/* Projects page styling */
+.project-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 1.5rem;
+  height: 100%;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.project-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.project-icon {
+  font-size: 1.8rem;
+  color: $primary-color;
+  margin-right: 1rem;
+  min-width: 2rem;
+  text-align: center;
+}
+
+.project-title {
+  margin: 0;
+  flex: 1;
+}
+
+.project-title a {
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.project-title a:hover {
+  color: $hover-color;
+  text-decoration: none;
+}
+
+.project-description {
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+  text-align: left;
 }
