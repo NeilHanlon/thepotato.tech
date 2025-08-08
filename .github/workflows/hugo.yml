@@ -159,6 +159,10 @@ jobs:
         with:
           name: github-pages
           path: ./site
+      - name: Extract artifact
+        run: |
+          cd site
+          tar -xf artifact.tar
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
