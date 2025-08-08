@@ -18,6 +18,8 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  issues: write
+  pull-requests: write
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -36,7 +38,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.148.0
+      HUGO_VERSION: 0.148.2
       HUGO_ENVIRONMENT: production
       TZ: America/New_York
     steps:
@@ -72,6 +74,14 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/" \
             --cacheDir "${{ runner.temp }}/hugo_cache"
+      - name: Create CNAME file
+        run: |
+          cat << EOF > public/CNAME
+          neilhanlon.me
+          neilhanlon.com
+          hanlon.ninja
+          thepotato.tech
+          EOF
       - name: Cache Save
         id: cache-save
         uses: actions/cache/save@v4
@@ -122,6 +132,7 @@ jobs:
       - name: Comment PR
         uses: actions/github-script@v7
         with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const domain = `thepotato-tech-pr-${{ github.event.number }}.surge.sh`;
             github.rest.issues.createComment({
