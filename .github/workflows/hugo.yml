@@ -42,21 +42,67 @@ jobs:
       HUGO_ENVIRONMENT: production
       TZ: America/New_York
     steps:
-      - name: Install Hugo CLI
-        run: |
-          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
-          sudo dpkg -i ${{ runner.temp }}/hugo.deb
-      - name: Install Dart Sass
-        run: sudo snap install dart-sass
-      - name: Checkout
+      - name: Checkout for gh CLI
         uses: actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0
+
+      - name: Check for existing PR artifact (main branch only)
+        if: github.ref == 'refs/heads/main'
+        id: check-pr
+        run: |
+          PR_NUMBER=$(gh pr list --state merged --limit 10 --json number,mergeCommit --jq ".[] | select(.mergeCommit.oid == \"${{ github.sha }}\") | .number" | head -1)
+          if [ -n "$PR_NUMBER" ]; then
+            echo "Found PR #$PR_NUMBER for this commit"
+            echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+            echo "has_pr=true" >> $GITHUB_OUTPUT
+          else
+            echo "No PR found, will build normally"
+            echo "has_pr=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Try to download existing PR artifact
+        if: github.ref == 'refs/heads/main' && steps.check-pr.outputs.has_pr == 'true'
+        id: download-existing
+        uses: dawidd6/action-download-artifact@v3
+        continue-on-error: true
+        with:
+          pr: ${{ steps.check-pr.outputs.pr_number }}
+          name: github-pages
+          path: ./existing-artifact
+
+      - name: Re-upload existing artifact
+        if: github.ref == 'refs/heads/main' && steps.download-existing.outcome == 'success'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./existing-artifact
+
+      - name: Check if build is needed
+        id: build-needed
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" || "${{ steps.download-existing.outcome }}" == "failure" || "${{ steps.check-pr.outputs.has_pr }}" == "false" ]]; then
+            echo "need_build=true" >> $GITHUB_OUTPUT
+          else
+            echo "need_build=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install Hugo CLI
+        if: steps.build-needed.outputs.need_build == 'true'
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
+          sudo dpkg -i ${{ runner.temp }}/hugo.deb
+      - name: Install Dart Sass
+        if: steps.build-needed.outputs.need_build == 'true'
+        run: sudo snap install dart-sass
       - name: Setup Pages
+        if: steps.build-needed.outputs.need_build == 'true'
         id: pages
         uses: actions/configure-pages@v5
       - name: Cache Restore
+        if: steps.build-needed.outputs.need_build == 'true'
         id: cache-restore
         uses: actions/cache/restore@v4
         with:
@@ -66,8 +112,10 @@ jobs:
           restore-keys:
             hugo-
       - name: Configure Git
+        if: steps.build-needed.outputs.need_build == 'true'
         run: git config core.quotepath false
       - name: Build with Hugo
+        if: steps.build-needed.outputs.need_build == 'true'
         run: |
           hugo \
             --gc \
@@ -75,6 +123,7 @@ jobs:
             --baseURL "${{ steps.pages.outputs.base_url }}/" \
             --cacheDir "${{ runner.temp }}/hugo_cache"
       - name: Create CNAME file
+        if: steps.build-needed.outputs.need_build == 'true'
         run: |
           cat << EOF > public/CNAME
           neilhanlon.me
@@ -83,13 +132,15 @@ jobs:
           thepotato.tech
           EOF
       - name: Cache Save
+        if: steps.build-needed.outputs.need_build == 'true'
         id: cache-save
         uses: actions/cache/save@v4
         with:
           path: |
             ${{ runner.temp }}/hugo_cache
           key: ${{ steps.cache-restore.outputs.cache-primary-key }}
-      - name: Upload artifact
+      - name: Upload new artifact
+        if: steps.build-needed.outputs.need_build == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
