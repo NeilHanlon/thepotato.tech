@@ -91,10 +91,10 @@ jobs:
       - name: Install Dart Sass
         if: steps.build-needed.outputs.need_build == 'true'
         run: sudo snap install dart-sass
-      # - name: Setup Pages
-      #   if: steps.build-needed.outputs.need_build == 'true'
-      #   id: pages
-        # uses: actions/configure-pages@v5
+      - name: Setup Pages
+        if: steps.build-needed.outputs.need_build == 'true'
+        id: pages
+        uses: actions/configure-pages@v5
       - name: Cache Restore
         if: steps.build-needed.outputs.need_build == 'true'
         id: cache-restore
@@ -133,36 +133,12 @@ jobs:
           path: |
             ${{ runner.temp }}/hugo_cache
           key: ${{ steps.cache-restore.outputs.cache-primary-key }}
+
       - uses: actions/upload-artifact@v4
         with:
           name: github-pages
           path: ./public
-
-  # Deployment job
-  deploy:
-    if: github.ref == 'refs/heads/main'
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: github-pages
-          path: ./public
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-          cd public
-          git init
-          git remote add git@github.com/$GITHUB_REPOSITORY.git
-          git config --local user.email "actions@github.com"
-          git config --local user.name "Github Actions"
-          git commit -m "deploy"
-
+      
       - name: Force push to destination branch
         uses: ad-m/github-push-action@latest
         with:
@@ -171,6 +147,14 @@ jobs:
           force: true
           directory: ./public/
 
+      - name: Upload new artifact
+        if: steps.build-needed.outputs.need_build == 'true'
+        run: |
+          cd public
+          git init
+          git config --local user.email "actions@github.com"
+          git config --local user.name "Github Actions"
+          git commit -m "deploy"
 
   # PR Preview job
   preview:
@@ -183,7 +167,7 @@ jobs:
         with:
           name: github-pages
           path: ./preview
-      - name: Extract 
+      - name: Extract site
         run: |
           cd preview
           tar -xf artifact.tar
