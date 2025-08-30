@@ -157,8 +157,8 @@ jobs:
         id: deployment
         run: |
           cd public
-          git init
-          git remote add git@github.com/$GITHUB_REPOSITORY.git
+          git init -b gh-pages
+          git remote add origin git@github.com/$GITHUB_REPOSITORY.git
           git config --local user.email "actions@github.com"
           git config --local user.name "Github Actions"
           git commit -m "deploy"
