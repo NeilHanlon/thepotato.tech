@@ -51,4 +51,4 @@ theme = "hugo-sustain"
   name = "resume"
   identifier = "resume"
   weight = 300
-  url = "/resume.pdf"
+  url = "https://shrugpw.com/resume.pdf"
