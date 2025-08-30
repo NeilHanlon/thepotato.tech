@@ -161,6 +161,7 @@ jobs:
           git remote add origin git@github.com/$GITHUB_REPOSITORY.git
           git config --local user.email "actions@github.com"
           git config --local user.name "Github Actions"
+          git add .
           git commit -m "deploy"
 
       - name: Force push to destination branch
