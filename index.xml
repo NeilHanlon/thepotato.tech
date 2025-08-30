@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neil Hanlon</title><link>/</link><description>Recent content on Neil Hanlon</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Fri, 08 Aug 2025 10:17:20 -0400</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>Joining ResolveX as a Technical Advisor: Infrastructure and Crisis Response</title><link>/posts/joining-resolvex-technical-advisor-crisis-response/</link><pubDate>Fri, 08 Aug 2025 10:17:20 -0400</pubDate><guid>/posts/joining-resolvex-technical-advisor-crisis-response/</guid><description>&lt;p>I&amp;rsquo;m excited to share that I&amp;rsquo;ve joined &lt;a href="https://resolvex.com">ResolveX&lt;/a> as a technical advisor. ResolveX
+builds software and data solutions for crisis call centers—988 suicide
+prevention lines, domestic violence hotlines, and other critical mental health
+resources.&lt;/p>
+&lt;h2 id="why-this-matters">Why This Matters&lt;/h2>
+&lt;p>Mental health crisis response has significant gaps that technology can help address. ResolveX builds tools to make crisis counselors more effective and help researchers understand patterns that could prevent crises.&lt;/p>
+&lt;p>They serve 988 operators—resource-constrained nonprofits handling life-or-death situations. The technical requirements are unique: rock-solid reliability, security for sensitive mental health data, and cost-effectiveness for organizations that measure impact in lives saved.&lt;/p></description></item><item><title>Smarthome Soldering Iron with Home Assistant and ESPHome (also: web GUIs for Pinecil)</title><link>/posts/smarthome-soldering-iron-pinecil-homeassistant-esphome/</link><pubDate>Tue, 28 Mar 2023 19:01:25 -0400</pubDate><guid>/posts/smarthome-soldering-iron-pinecil-homeassistant-esphome/</guid><description>&lt;p>About a year ago, &lt;a href="https://hachyderm.io/@wesdottoday">wesdottoday&lt;/a> told me to
+buy a Pinecil and, once they came back in stock before the holidays.. I did just
+that&amp;hellip; Fast forward a couple months and I&amp;rsquo;ve got a
+&lt;a href="https://copr.fedorainfracloud.org/coprs/neil/blisp/">copr&lt;/a> for flashing the
+Pinecil&amp;rsquo;s firmware (IronOS), and am spending my weekends playing around with
+Bluetooth Low Energy (BLE) and Home Assistant to automatically turn on my fan
+when I start tinkering at my desk, lest my lungs die from the fumes.&lt;/p></description></item></channel></rss>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>FOSS on Neil Hanlon</title><link>/categories/foss/</link><description>Recent content in FOSS on Neil Hanlon</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Tue, 28 Mar 2023 19:01:25 -0400</lastBuildDate><atom:link href="/categories/foss/index.xml" rel="self" type="application/rss+xml"/><item><title>Smarthome Soldering Iron with Home Assistant and ESPHome (also: web GUIs for Pinecil)</title><link>/posts/smarthome-soldering-iron-pinecil-homeassistant-esphome/</link><pubDate>Tue, 28 Mar 2023 19:01:25 -0400</pubDate><guid>/posts/smarthome-soldering-iron-pinecil-homeassistant-esphome/</guid><description>&lt;p>About a year ago, &lt;a href="https://hachyderm.io/@wesdottoday">wesdottoday&lt;/a> told me to
+buy a Pinecil and, once they came back in stock before the holidays.. I did just
+that&amp;hellip; Fast forward a couple months and I&amp;rsquo;ve got a
+&lt;a href="https://copr.fedorainfracloud.org/coprs/neil/blisp/">copr&lt;/a> for flashing the
+Pinecil&amp;rsquo;s firmware (IronOS), and am spending my weekends playing around with
+Bluetooth Low Energy (BLE) and Home Assistant to automatically turn on my fan
+when I start tinkering at my desk, lest my lungs die from the fumes.&lt;/p></description></item></channel></rss>

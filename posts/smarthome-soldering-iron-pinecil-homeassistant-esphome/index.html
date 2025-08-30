@@ -1,0 +1,107 @@
+<!doctype html><html lang=en-US><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="Neil Hanlon"><link rel="shortcut icon" type=image/x-icon href=/img/favicon.ico><title>Smarthome Soldering Iron with Home Assistant and ESPHome (also: web GUIs for Pinecil) | Neil Hanlon</title><meta name=description content="Learn how to create a smart soldering iron using Pinecil with Home Assistant and ESPHome, as well as explore the options for controlling and monitoring your Pinecil with Bluetooth"><link href=https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css rel=stylesheet integrity=sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl crossorigin=anonymous><link rel="preload stylesheet" href=/css/main.min.css as=style><link rel=stylesheet type=text/css href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old"><link rel=stylesheet href=/sass/overrides.css><!--[if lt IE 9]><script src=https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js></script><script src=https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js></script><![endif]--><script defer data-domain=thepotato.tech src=https://plausible.io/js/script.js></script><script defer data-domain=thepotato.tech src=/font-awesome/6.7.2/js/fontawesome.min.js></script><script defer data-domain=thepotato.tech src=/font-awesome/6.7.2/js/brands.min.js></script><script defer data-domain=thepotato.tech src=/font-awesome/6.7.2/js/solid.min.js></script></head><body><div id=content><div class="container mb-3"><nav class="navbar navbar-expand-lg"><div class=container-fluid><a class=navbar-brand href=/><i class="fa-solid fa-home"></i>
+</a><button class=navbar-toggler type=button data-bs-toggle=collapse data-bs-target=#navbar aria-controls=navbar>
+<i class="fa-solid fa-bars"></i></button><div id=navbar class="collapse navbar-collapse"><ul class="navbar-nav ms-auto mb-2 mb-lg-0"><li class=nav-item><li><a class=nav-link href=/posts/>POSTS</a></li></li><li class=nav-item><li><a class=nav-link href=/projects/>PROJECTS</a></li></li><li class=nav-item><li><a class=nav-link href=https://shrugpw.com/resume.pdf>RESUME</a></li></li></ul></div></div></div></nav><div class=container><h3 class=mt-3><b><a href=/posts/smarthome-soldering-iron-pinecil-homeassistant-esphome/>Smarthome Soldering Iron with Home Assistant and ESPHome (also: web GUIs for Pinecil)</a></b></h3><div class="blog-title my-4"><h6>March 28, 2023
+&nbsp;&nbsp;
+<span class="badge bg-success">Pinecil</span>
+<span class="badge bg-success">Home Assistant</span>
+<span class="badge bg-success">DIY</span>
+<span class="badge bg-success">RISC-V</span>
+<span class="badge bg-success">Blisp</span>
+<span class="badge bg-success">PineSAM</span>
+<span class="badge bg-success">Pine64</span>
+<span class="badge bg-success">esphome</span></h6></div><div class=panel><div class=panel-body><div class=blogpost><p>About a year ago, <a href=https://hachyderm.io/@wesdottoday>wesdottoday</a> told me to
+buy a Pinecil and, once they came back in stock before the holidays.. I did just
+that&mldr; Fast forward a couple months and I&rsquo;ve got a
+<a href=https://copr.fedorainfracloud.org/coprs/neil/blisp/>copr</a> for flashing the
+Pinecil&rsquo;s firmware (IronOS), and am spending my weekends playing around with
+Bluetooth Low Energy (BLE) and Home Assistant to automatically turn on my fan
+when I start tinkering at my desk, lest my lungs die from the fumes.</p><figure class="inline-40 left"><img src=/posts/smarthome-soldering-iron-pinecil-homeassistant-esphome/pinecil-esp32.jpg alt="ESP-WROOM-32 Development MCU with a Pinecil v2 leaning on it"></figure><p>By popular demand, I&rsquo;m writing a blog post about the Pinecil, how to flash the
+latest firmware, and then what you can (currently) do with bidirectional
+communication to your soldering iron.</p><p>We&rsquo;ll also go over two Pinecil community projects offering in-browser
+experiences (PineSam and Joric&rsquo;s &lsquo;Pinecil&rsquo;), and lastly some instructions on
+using an <a href=https://www.espressif.com/en/products/socs/esp32>ESP32</a> and
+<a href=https://esphome.io/>ESPHome</a> to send Pinecil data to
+<a href=https://home-assistant.io/>HomeAssistant</a> so you can do everything from
+visualize your soldering statistics, to automatically turn on an exhaust fan
+when you start working.</p><h3 id=acknowledgements>Acknowledgements</h3><ul><li><a href=https://github.com/ralim>Ben Brown (Ralim)</a> - Maintainer and developer of IronOS for Pinecil and Miniware Irons<ul><li>Support them on <a href=https://ko-fi.com/ralim>Ko-fi</a></li></ul></li><li><a href=https://github.com/gamelaster>Gamiee (Gamelaster)</a> - Developer and maintainer of pine64_updater, IronOS</li><li><a href=https://github.com/river-mochi>River-Mochi</a> for reviewing this article and their excellent organization and documentation work for Pine64 and the Pinecil.</li><li><a href=https://github.com/TomW1605>TomW1605</a> & <a href=https://github.com/ithinkido>ithinkido</a> for their work on the implementation of the Pinecil ESP32 integration</li><li><a href=https://github.com/builder555>Builder555</a> - PineSAM maintainer and developer</li><li><a href=https://github.com/joric>Joric</a> - Developer of original BLE GATT application for Pinecil</li></ul><h2 id=the-pinecil>The Pinecil</h2><p>The <a href=https://www.pine64.org/pinecil/>Pinecil</a> is an open-source soldering iron
+based on the RISC-V architecture produced by Pine64. There are two versions of
+Pinecil - v1 and v2. Pinecil v1 does not have a Bluetooth Low Energy (BLE) chip,
+whereas Pinecil v2 does. In this blog post, we will focus on Pinecil v2. Pine64
+does not distinguish between v1 and v2 except for on the PCB as a revision. If
+you&rsquo;re buying a Pinecil in 2023 or beyond, and it&rsquo;s from an official source, it
+is a v2.</p><p>You can find more information about the Pinecil in the links below, including
+where to buy. Check the Pinecil Wiki for up-to-date information on where to buy
+a genuine Pinecil, and how to avoid fakes.</p><h3 id=links>Links</h3><ul><li><a href=https://pine64.com/>Pine64.com</a> - Offical store for Pine64 devices. Ships
+from China and takes 3-4 weeks for delivery</li><li><a href=https://pine64.org>Pine64.org</a> - The community associated with Pine64
+devices. Check out the Discord/Telegram chat for a great group of tinkerers,
+and if you have any trouble with your Pinecil or associated tools</li><li><a href=https://wiki.pine64.org/wiki/Pinecil>Pinecil Wiki</a> - Lots of tips and
+tricks, as well as up to date purchasing and troubleshooting information.<ul><li>Shout out to River-Mochi for their <em>awesome</em> work on keeping this up to date
+and useful</li></ul></li><li><a href=https://github.com/pine64/pine64_updater>Pine64 Updater</a> - v1 Pinecil updater tool</li><li><a href=https://wiki.pine64.org/wiki/Pinecil#Development_Projects>Pinecil Development Projects</a> - Updated links to all community projects</li></ul><h2 id=blisp>Blisp</h2><p>Blisp is a flashing tool used to flash ironOS on Pinecil v2 that stands for
+&lsquo;Bouffalo Labs In-System Programming&rsquo;. It&rsquo;s used to flash the Bouffalo BL706 MCU
+that was integrated on the v2 Pinecil. You can find the source code for Blisp on
+<a href=https://github.com/pine64/blisp>GitHub</a>.</p><p>I also maintain a Fedora COPR respository for it
+<a href=https://copr.fedorainfracloud.org/coprs/neil/blisp/>here</a>, where you can find
+packages with precompiled binaries for Fedora and Enterprise Linux (8/9). I am
+working with Pine64 to make it easier to get it packaged for Fedora and other
+Linux distributions down the road.</p><h3 id=flashing-the-beta-firmware-with-blisp>Flashing the beta firmware with blisp</h3><p>Until version v2.21 of IronOS ships, a beta firmware is required to use the BLE
+functionality of the Pinecil v2. There has been a significant amount of testing
+and development on the BLE stack on the main tree in the last few months and the
+developers have been making sure the BLE features are ready before they are
+released to a much larger audience.</p><figure><img src=/posts/smarthome-soldering-iron-pinecil-homeassistant-esphome/blisp-flash.png alt="Flashing the Pinecilv2 with blisp CLI"></figure><p>Once v2.21 is released, binaries can be retrieved from the
+<a href=https://github.com/Ralim/IronOS/releases>IronOS Releases</a> page.</p><h4 id=steps-to-download-and-flash>Steps to download and flash</h4><p>These steps assume you have a compiled version of <code>blisp</code> in your system path,
+either by installing from my COPR, or compiling on your own using the
+instructions in the repository.</p><ol><li>Find the latest sucessful actions run on the ironos repo
+<a href="https://github.com/Ralim/IronOS/actions/workflows/push.yml?query=branch%3Adev+event%3Apush">here</a>.</li><li>Download the <code>Pinecilv2</code> zip file for that run, and unzip it</li><li>Plug your Pinecil into your computer while holding down the &lsquo;Minus&rsquo; (-)
+button. The screen should <strong>not</strong> turn on. If on Linux, <code>dmesg</code> should report
+seeing the BL706 as a serial device.</li><li>Run the following command to flash the firmware to your Pinecil:<pre tabindex=0><code>blisp write -c bl70x --reset /path/to/Pinecilv2_extracted/Pinecilv2_EN.bin
+</code></pre></li><li>Un-plug and plug the Pinecil back in to boot the new firmware</li></ol><p>NOTE: You may ignore the .dfu and .hex files provided in the .zip file.</p><h5 id=pinecilv2-vs-pinecilv2_multi-lang>Pinecilv2 vs Pinecilv2_multi-lang</h5><p>Two variants of firmwares for Pinecil are provided: combined mutli-language binaries, and individual per-language binaries. The per-language binaries are much smaller, and while the Pinecilv2 has more flash available to store the mutli-language images, for general usage, you will have an easier time with the language-specific binary rather than the multi-lang binaries.</p><p>Multi-lang provides three bundles of languages:</p><ol><li>Chinese and Japanese</li><li>Russian, Ukranian, Serbian, and Bulgarian</li><li>European (All not mentioned above)</li></ol><p>Ultimately, it is up to you which you decide to use</p><h4 id=pineflash>Pineflash</h4><p><a href=https://github.com/Spagett1>Spagett1</a> updated their Pineflash tool which allows
+for a non-command-line experience for flashing new versions of IronOS on the Pinecil V1 and V2, similar to the Pine64 updater (add link) utility for the v1 Pinecil. You can find
+more information on the PineFlash
+<a href=https://github.com/Spagett1/PineFlash>GitHub repo</a>. Feel free to check it out
+and give them feedback!</p><p>Pineflash supports Linux and MacOS at this time (2023-04-03), and support for Windows is a work in progress. If you would like to help test, please join the chat and make yourself known.</p><h2 id=bluetooth-low-energy>Bluetooth Low Energy</h2><p>Bluetooth Low Energy (BLE) is a wireless communication protocol that is designed
+to consume less energy than classic Bluetooth. There is upcoming support in
+browser APIs to allow access to BLE devices, and so there are a handful of
+options for how to get your Pinecil talking to your computer.</p><h2 id=interacting-with-your-pinecil-over-bluetooth>Interacting with your Pinecil over Bluetooth</h2><h3 id=pinesam-by-builder555>PineSAM by <a href=https://github.com/builder555>Builder555</a></h3><p>PineSAM (Pinecil Settings and Menus) started out as an in-browser way to see and
+change settings. It&rsquo;s served a multitude of uses from helping people with
+cracked or non-functional screens, all the way to adding really helpful
+accessibility features to those who struggle to read the small screen on the
+Pinecil. It&rsquo;s is a Python and Vue-based application that has to have a server
+component running locally&ndash;along with a machine that has bluetooth. You can find
+the source code for PineSAM on <a href=https://github.com/builder555/PineSAM/>GitHub</a>, but read on below for how to grab precompiled versions of the application.</p><figure class=inline><img src=/posts/smarthome-soldering-iron-pinecil-homeassistant-esphome/pinesam.png alt="PineSAM UI"></figure><p>PineSAM allows the user to not only see the live temperature, wattage, and
+voltage of their device but change the settings and temperatures at a click.
+Uniquely, it allows users to set temperature presets for one-click changes
+between temperatures&ndash;for example to switch between leaded and unleaded solder.</p><p>You can access PineSAM from your mobile device once it&rsquo;s running on your computer to have a touch-capable way of controlling your settings. On your phone, flip the screen to portait mode in order to see the graph as on desktop.</p><figure class="inline-40 left"><img src=/posts/smarthome-soldering-iron-pinecil-homeassistant-esphome/pinesam-mobile.png alt="Screenshot of PineSAM UI on Mobile device"></figure><p>The PineSAM project is working to integrate a &ldquo;Work&rdquo; screen which takes
+inspiration from Joric&rsquo;s UI. Due to this, it&rsquo;s likely these two projects will
+end up combining into one, in my opinion, despite their distinct mechanisms for
+retrieving BLE data from the Pinecil.</p><h4 id=setting-up-pinesam>Setting up PineSAM</h4><p>See the
+<a href=https://github.com/builder555/PineSAM#i-using-pre-made-binaries>project readme</a>
+for the most up-to-date instructions. If you run into any trouble, come find us
+in the #pinecil channel on Pine64&rsquo;s Discord or Telegram chat.</p><h3 id=jorics-ble-api><a href=https://github.com/joric/>Joric</a>&rsquo;s BLE API</h3><p>Another project is a more simple web UI that uses in-browser Bluetooth support
+(currently only really well supported in Chromium/Firefox, and even then it&rsquo;s
+not universal or without bugs. This UI shows a nice graph of your Pinecil&rsquo;s
+temperature and power supply information, but is limited to devices supporting
+WebBLE, and also is only able to change the set point (temperature) on the
+device. You can also find the source code for Joric UI on
+<a href=https://github.com/joric/pinecil>GitHub</a>.</p><figure class="inline-60 right"><img src=/posts/smarthome-soldering-iron-pinecil-homeassistant-esphome/joric-ui.png alt="Joric's UI"></figure><h4 id=setting-up-jorics-ui>Setting up Joric&rsquo;s UI</h4><p>No setup needed! Just browse to
+<a href=https://joric.github.io/pinecil/>https://joric.github.io/pinecil/</a> in a
+compatible browser. I&rsquo;ve personally tested Firefox and Chromium on Fedora 37,
+but I know others have got it working on Windows and MacOS, too.</p><p>As with PineSAM, feel free to come to chat for help and support.</p><h2 id=home-assistant-setup-with-esphome>Home Assistant Setup with ESPHome</h2><p>If Home Assistant (HASS) is more your speed, read on below. Be warned to get
+this setup, you will need some sort of ESP32 device to read data from your
+Pinecil and report it to Home Assistant. I used one of the
+<a href=https://www.amazon.com/ESP-WROOM-32-Development-Microcontroller-Integrated-Compatible/dp/B08D5ZD528>WROOM ESP32 dev boards</a>
+I&rsquo;ve had in my closet for a few months (not an affiliate link).</p><p>If you&rsquo;re not familiar, Home Assistant is an open-source home automation
+platform which can inte grate with ESPHome, another open source system to
+control your ESP8266/ESP32 using just YAML configurations. In this section, I&rsquo;ll
+walk though how to setup an ESP32 with will show you how to create a smart
+soldering iron using Pinecil with Home Assistant and ESPHome.</p><figure class=inline><img src=/posts/smarthome-soldering-iron-pinecil-homeassistant-esphome/hass-soldering.png alt="Home Assistant Soldering UI"></figure><p>To make this work, we&rsquo;ll use an
+<a href=https://github.com/TomW1605/esphome_pinecilv2_ble/blob/main/esphome_pinecilv2_ble.yaml>ESPHome configuration file</a>
+put together by Pine64 community member TomW1605. Thank you again, Tom!</p><h2 id=requirements>Requirements</h2><ul><li>ESP32 device (Non affiliate link:
+<a href=https://www.amazon.com/ESP-WROOM-32-Development-Microcontroller-Integrated-Compatible/dp/B08D5ZD528>ESP-WROOM-32 Development MCU on Amazon</a>)</li><li>Home Assistant already setup</li><li>ESPHome already setup</li></ul><h2 id=steps>Steps</h2><ol><li>Login to ESPHome</li><li>Import
+<a href=https://github.com/TomW1605/esphome_pinecilv2_ble/blob/main/esphome_pinecilv2_ble.yaml>this ESPHome configuration file</a>.</li><li>Modify and set up the configuration file as follows:<ol><li>Change board in esp32 section to your board.<ul><li>If using the WROOM 32 I linked above, use <code>nodemcu-32s</code></li></ul></li><li>Setup an encryption key. This must be a base64-encoded, 32 bit string.<ul><li>You can create one on the CLI using <code>openssl rand -base64 32</code></li></ul></li><li>Change OTA password to desired</li><li>Change wifi SSID and password for your network in ESPHome secrets</li><li>Change wifi access point fallback settings to desired</li><li><strong>Important</strong> - Change ble_client mac address to your Pinecil&rsquo;s MAC. This
+can be found in the settings as well as in logs from the above tools
+(Joric/PineSAM)<figure class=inline><img src=/posts/smarthome-soldering-iron-pinecil-homeassistant-esphome/pinecil-esphome.png alt="Pinecil esp32 configuration example"></figure></li></ol></li><li>Flash the firmware to the ESP32 device</li><li>Add the device to Home Assistant</li><li>Create a Home Assistant dashboard to control and monitor your smart soldering
+iron.<ul><li>An example dashboard can be found at
+<a href=https://gist.github.com/NeilHanlon/83d6e2cdc6eb83cb205b617f80c2a7c3>https://gist.github.com/NeilHanlon/83d6e2cdc6eb83cb205b617f80c2a7c3</a></li><li>It uses the &lsquo;mini-graph-card&rsquo; and &lsquo;auto-entities&rsquo; integrations from HACS
+<script src=https://gist.github.com/neilhanlon/83d6e2cdc6eb83cb205b617f80c2a7c3.js></script></li></ul></li></ol><p>Now that you&rsquo;ve got that setup, you should start to see data coming in about
+your Pinecil&rsquo;s settings! Go on and automate thy solder.</p></div></div><div class=disqus></div></div></div></div><footer class=footer><div class=container><div class=text-muted>&copy; All rights reserved. Powered by <a href=https://gohugo.io/>Hugo</a> and
+<a href=http://www.github.com/nurlansu/hugo-sustain/>sustain</a> with ♥</div></div></footer><script src=https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js integrity=sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG crossorigin=anonymous></script><script src=https://storage.ko-fi.com/cdn/scripts/overlay-widget.js></script><script>kofiWidgetOverlay.draw("kneel",{type:"floating-chat","floating-chat.donateButton.text":"Support me","floating-chat.donateButton.background-color":"#fcbf47","floating-chat.donateButton.text-color":"#323842"})</script></body></html>
