@@ -120,10 +120,10 @@ jobs:
         if: steps.build-needed.outputs.need_build == 'true'
         run: |
           cat << EOF > public/CNAME
-          neilhanlon.me
-          neilhanlon.com
-          hanlon.ninja
           thepotato.tech
+          neilhanlon.com
+          neilhanlon.me
+          hanlon.ninja
           EOF
       - name: Cache Save
         if: steps.build-needed.outputs.need_build == 'true'
