@@ -158,7 +158,7 @@ jobs:
         run: |
           cd public
           git init -b gh-pages
-          git remote add origin git@github.com/$GITHUB_REPOSITORY.git
+          git remote add origin git+ssh://git@github.com/$GITHUB_REPOSITORY.git
           git config --local user.email "actions@github.com"
           git config --local user.name "Github Actions"
           git add .
