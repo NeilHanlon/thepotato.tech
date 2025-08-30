@@ -155,7 +155,7 @@ jobs:
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        run: |
           cd public
           git init
           git remote add git@github.com/$GITHUB_REPOSITORY.git
