@@ -5,24 +5,41 @@
       <span class="dot dot--pulse" aria-hidden="true"></span> ~/projects
     </p>
     <h1 class="page-hero__title">{{ .Title }}</h1>
-    <p class="page-hero__subtitle">Open source, governance, and infrastructure I help keep running.</p>
+    <p class="page-hero__subtitle">Open source, governance, and the businesses I run — current work and where I've been.</p>
   </div>
 </div>
 
 <div class="section">
   <div class="container">
     {{- with .Content }}<div class="prose" style="margin-bottom:var(--s10);">{{ . }}</div>{{ end }}
-    <div class="card-grid">
-      {{- range .Site.Data.projects.source }}
-      <div class="card">
-        <h3 class="card__title"><span class="dot" aria-hidden="true"></span> {{ .name }}</h3>
+
+    {{- $current := where .Site.Data.projects.source "status" "!=" "past" }}
+    {{- $past := where .Site.Data.projects.source "status" "past" }}
+
+    <span class="section-label">// currently</span>
+    <div class="card-grid" style="margin-bottom:var(--s16);">
+      {{- range $current }}
+      {{- partial "project-card.html" . }}
+      {{- end }}
+      {{/* Soft consulting CTA — delete this <a> block to remove */}}
+      <a class="card card--cta" href="https://shrugpw.com" rel="noopener">
+        <p class="card__role">// open slot</p>
+        <h3 class="card__title">Your project here?</h3>
         <div class="card__body">
-          <p>{{ .description }}</p>
-          {{- with .url }}<p style="margin-top:var(--s3);"><a href="{{ . }}" rel="noopener">{{ . | replaceRE "^https?://" "" | replaceRE "/$" "" }} →</a></p>{{ end }}
+          <p>I take on a couple of engagements at a time — a migration, a network done right, infrastructure that needs untangling.</p>
+          <p class="card__link">let's talk →</p>
         </div>
-      </div>
+      </a>
+    </div>
+
+    {{- with $past }}
+    <span class="section-label">// previously</span>
+    <div class="card-grid">
+      {{- range . }}
+      {{- partial "project-card.html" . }}
       {{- end }}
     </div>
+    {{- end }}
   </div>
 </div>
 {{ end }}

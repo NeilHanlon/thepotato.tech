@@ -1,30 +1,76 @@
 name: Projects
 source:
-  - icon: fa-solid fa-building
-    name: Rocky Enterprise Software Foundation
-    description: Board member for the non-profit foundation behind Rocky Linux. Focus on strategic governance, financial oversight, and advancing the mission of community-driven enterprise Linux distribution development.
-    url: https://rockylinux.org/about
-  - icon: fa-brands fa-github
-    name: Rocky Linux
-    description: Infrastructure architect and core team member for Rocky Linux. Built and maintain all infrastructure from bare metal to cloud services, including CI/CD pipelines, build systems, and supply chain security. Work closely with Release Engineering on next-generation build automation and ensuring security throughout the software supply chain.
-    url: https://github.com/rocky-linux/
-  - icon: fa-solid fa-code-branch
-    name: OpenELA
-    description: Technical Steering Committee member for OpenELA, the Open Enterprise Linux Association. Help guide technical strategy and governance for collaborative development of enterprise Linux distributions, focusing on open source supply chain transparency and community collaboration.
-    url: https://openela.org/
-  - icon: fa-solid fa-heart
-    name: ResolveX
-    description: Board member and technical advisor for ResolveX, building software and data solutions for crisis call centers including 988 suicide prevention lines and mental health resources. Provide strategic guidance on scaling infrastructure and technology decisions for mission-critical systems.
-    url: https://resolvex.com/
-  - icon: fa-solid fa-handshake
-    name: Shrug PW Consulting
-    description: Founder and Principal Consultant providing infrastructure architecture, DevOps automation, and technical advisory services. Specialize in scaling systems for mission-driven organizations, supply chain security, and building reliable infrastructure on constrained budgets.
+  # --- Currently ---
+  - name: Shrug PW Consulting
+    role: Founder & Principal Consultant
+    status: current
+    description: Infrastructure architecture, automation, and technical advisory for mission-driven orgs — reliable systems on real budgets.
     url: https://shrugpw.com/
-  - icon: fa-brands fa-fedora
-    name: Fedora Project
-    description: Active contributor to Fedora RISC-V SIG and Community Operations (CommOps). Work on infrastructure, packaging ecosystem, build systems, and community tooling. Focus on RISC-V architecture support and community infrastructure reliability.
+
+  - name: shrug.host
+    role: Founder
+    status: current
+    description: Human-scale hosting for small organizations and open source projects. Reliable infrastructure without the enterprise complexity.
+    url: https://shrug.host/
+
+  - name: shrug.games
+    role: Founder
+    status: current
+    description: Game server hosting that just works. Built with Taylor and Lexi.
+    url: https://shrug.games/
+
+  - name: swamp.club
+    role: OG Swamper
+    status: current
+    description: Early member of the swamp.club community (formerly System Initiative) — model-based infrastructure automation, from back when it was still finding its shape.
+    url: https://swamp.club/
+
+  - name: RDO / CentOS Cloud SIG
+    role: PTL
+    status: current
+    description: Leading RDO's transition into the CentOS Cloud SIG — steering where RDO's OpenStack packaging lives and how it ships.
+    url: https://www.rdoproject.org/
+
+  - name: OpenStack-Ansible
+    role: Core reviewer
+    status: current
+    description: Reviewing patches and keeping the deployment automation honest for running OpenStack on enterprise Linux.
+    url: https://opendev.org/openstack/openstack-ansible
+
+  - name: Fedora Project
+    role: Contributor · RISC-V SIG, CommOps
+    status: current
+    description: Packaging, build systems, and community tooling — with a standing effort to get more of Fedora booting on RISC-V.
     url: https://fedoraproject.org/
-  - icon: fa-solid fa-cloud
-    name: OpenStack
-    description: Core reviewer for OpenStack-Ansible and contributor to OpenStack-Kolla projects. Support OpenStack integration with Rocky Linux and work in CentOS NFV and Cloud SIGs. Focus on deployment automation, bare metal provisioning, and enterprise Linux integration.
-    url: https://openstack.org/
+
+  - name: OpenELA
+    role: Technical Steering Committee
+    status: current
+    description: Governance for a vendor-neutral source of enterprise Linux — supply-chain transparency, less drama.
+    url: https://openela.org/
+
+  - name: ResolveX
+    role: Board member & technical advisor
+    status: current
+    description: Infrastructure and scaling advice for a team building software for crisis call centers — 988 and mental-health lines.
+    url: https://resolvex.com/
+
+  - name: Amateur Radio & Emergency Comms
+    role: RACES / ARES · CERT
+    status: current
+    description: Volunteer emergency communications — RACES/ARES nets, public-service events, and CERT. When the internet's down, the radio still works.
+
+  # --- Previously ---
+  - name: Rocky Linux
+    role: Infrastructure architect · core team
+    status: past
+    when: through 2026
+    description: Built and ran everything from bare metal to cloud — CI/CD, build systems, supply-chain security — and worked with Release Engineering on next-generation build automation.
+    url: https://github.com/rocky-linux/
+
+  - name: Rocky Enterprise Software Foundation
+    role: Board member
+    status: past
+    when: through 2026
+    description: Governance, financial oversight, and mission for the non-profit behind Rocky Linux.
+    url: https://rockylinux.org/about

@@ -87,10 +87,19 @@
   padding:var(--s6);background:var(--bg-elevated);transition:border-color var(--tr),transform var(--tr);
 }
 .card:hover{border-color:var(--border-strong);transform:translateY(-2px);}
-.card__title{font-size:var(--text-lg);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s3);}
-.card__title .icon{color:var(--sprout);width:1.1em;text-align:center;}
+.card__title{font-size:var(--text-lg);margin-bottom:var(--s2);display:flex;align-items:center;gap:var(--s3);}
+.card__role{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--sprout);margin-bottom:var(--s4);}
+.card__when{color:var(--text-faint);}
 .card__body{color:var(--text-muted);font-size:var(--text-base);}
+.card__link{margin-top:var(--s3);}
 .card__body a{text-decoration:underline;text-underline-offset:2px;}
+.card--past{background:transparent;border-style:dashed;}
+.card--past .dot{background:var(--text-faint);box-shadow:none;}
+.card--past .card__role{color:var(--text-faint);}
+.card--cta{background:transparent;border-style:dashed;border-color:var(--border-strong);display:flex;flex-direction:column;justify-content:center;}
+.card--cta:hover{border-color:var(--russet);transform:none;}
+.card--cta .card__title{color:var(--russet);}
+.card--cta .card__link{color:var(--russet);font-family:var(--font-mono);font-size:var(--text-sm);}
 
 /* --- Breadcrumb --- */
 .breadcrumb{

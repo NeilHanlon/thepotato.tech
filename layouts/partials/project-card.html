@@ -1,0 +1,12 @@
+{{- $past := eq .status "past" }}
+<div class="card{{ if $past }} card--past{{ end }}">
+  <h3 class="card__title"><span class="dot" aria-hidden="true"></span> {{ .name }}</h3>
+  <p class="card__role">
+    {{- with .role }}{{ . }}{{ end }}
+    {{- with .when }}<span class="card__when"> · {{ . }}</span>{{ end }}
+  </p>
+  <div class="card__body">
+    <p>{{ .description }}</p>
+    {{- with .url }}<p class="card__link"><a href="{{ . }}" rel="noopener">{{ . | replaceRE "^https?://" "" | replaceRE "/$" "" }} →</a></p>{{ end }}
+  </div>
+</div>
