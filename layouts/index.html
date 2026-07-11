@@ -1,0 +1,77 @@
+{{ define "body-class" }}page-home{{ end }}
+
+{{ define "main" }}
+
+<header class="hero">
+  <div class="container">
+    <p class="hero__eyebrow eyebrow">
+      <span class="dot dot--pulse" aria-hidden="true"></span>
+      {{ .Site.Params.hero_eyebrow | default "neil@potato:~$ whoami" }}
+    </p>
+    <h1 class="hero__title">
+      {{ .Site.Params.author }} —<br>
+      infrastructure, networks, systems<br>
+      &amp; the occasional <span class="grad">potato</span>.
+    </h1>
+    <div class="hero__lede">
+      {{ .Content }}
+    </div>
+    <div class="actions">
+      <a class="btn btn--primary" href="/posts/">Read the blog →</a>
+      <a class="btn btn--ghost" href="/projects/">Projects</a>
+      <a class="btn btn--ghost" href="https://shrugpw.com" rel="noopener">Hire me →</a>
+    </div>
+    <div class="social-inline">
+      {{- with .Site.Params.social.github }}<a href="https://github.com/{{ . }}" rel="me noopener"><span class="dot" aria-hidden="true"></span> github/{{ . }}</a>{{ end }}
+      {{- with .Site.Params.social.bluesky }}<a href="https://bsky.app/profile/{{ replace . "@" "" }}" rel="me noopener">bsky/{{ . }}</a>{{ end }}
+      {{- with .Site.Params.social.instagram }}<a href="https://instagram.com/{{ . }}" rel="noopener">the cat's instagram</a>{{ end }}
+      {{- with .Site.Params.social.email }}<a href="mailto:{{ . }}">{{ . }}</a>{{ end }}
+    </div>
+  </div>
+</header>
+
+<section class="section section--surface" aria-labelledby="writing-heading">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label">// writing</span>
+      <h2 id="writing-heading">Latest posts</h2>
+      <p>Homelab, infrastructure, and the occasional life event that turns into a systems-design problem.</p>
+    </div>
+    <div class="posts">
+      {{- range first 8 (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+      <a href="{{ .RelPermalink }}" class="post-row">
+        <div class="post-row__meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+          {{- if .Draft }}<span class="chip chip--draft">draft</span>
+          {{- else }}{{ with .Params.tags }}<span class="chip chip--tag">{{ index . 0 }}</span>{{ end }}{{ end }}
+        </div>
+        <div>
+          <div class="post-row__title">{{ .Title }}</div>
+          <p class="post-row__dek">{{ .Description | default .Summary | truncate 180 }}</p>
+        </div>
+      </a>
+      {{- end }}
+    </div>
+  </div>
+</section>
+
+{{- with .Site.Params.now }}
+<section class="section soil" aria-labelledby="now-heading">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label">// now</span>
+      <h2 id="now-heading">What's running</h2>
+    </div>
+    <div class="now-grid">
+      {{- range . }}
+      <div class="now-card">
+        <h3><span class="dot" aria-hidden="true"></span> {{ .title }}</h3>
+        <p>{{ .body | safeHTML }}</p>
+      </div>
+      {{- end }}
+    </div>
+  </div>
+</section>
+{{- end }}
+
+{{ end }}

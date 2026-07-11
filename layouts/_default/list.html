@@ -1,0 +1,33 @@
+{{ define "main" }}
+<div class="page-hero">
+  <div class="container">
+    <p class="page-hero__eyebrow eyebrow">
+      <span class="dot dot--pulse" aria-hidden="true"></span>
+      {{ with .Params.eyebrow }}{{ . }}{{ else }}~/{{ .Section | default "posts" }}{{ end }}
+    </p>
+    <h1 class="page-hero__title">{{ .Title }}</h1>
+    {{- with .Description }}<p class="page-hero__subtitle">{{ . }}</p>{{ end }}
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    {{- with .Content }}<div class="prose" style="margin-bottom:var(--s10);">{{ . }}</div>{{ end }}
+    <div class="posts">
+      {{- range .Pages.ByDate.Reverse }}
+      <a href="{{ .RelPermalink }}" class="post-row">
+        <div class="post-row__meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+          {{- if .Draft }}<span class="chip chip--draft">draft</span>
+          {{- else }}{{ with .Params.tags }}<span class="chip chip--tag">{{ index . 0 }}</span>{{ end }}{{ end }}
+        </div>
+        <div>
+          <div class="post-row__title">{{ .Title }}</div>
+          <p class="post-row__dek">{{ .Description | default .Summary | truncate 180 }}</p>
+        </div>
+      </a>
+      {{- end }}
+    </div>
+  </div>
+</div>
+{{ end }}

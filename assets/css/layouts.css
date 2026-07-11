@@ -1,0 +1,51 @@
+/* ==========================================================================
+   thepotato.tech — Layouts: hero, home sections, page hero, soil strip
+   ========================================================================== */
+
+/* --- Home hero --- */
+.hero{padding:var(--s24) 0 var(--s16);}
+.hero__eyebrow{margin-bottom:var(--s5);}
+.hero__title{font-size:clamp(2.6rem,7vw,var(--text-6xl));line-height:1.05;margin-bottom:var(--s6);}
+.hero .grad{
+  background:linear-gradient(102deg,var(--russet),var(--sprout-bright));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero__lede{font-size:var(--text-xl);max-width:var(--max-text);color:var(--text-muted);}
+.hero__lede p{margin-bottom:var(--s4);}
+.hero__lede strong{color:var(--text);}
+.hero__lede a{text-decoration:underline;text-underline-offset:3px;text-decoration-color:color-mix(in srgb,var(--russet) 45%,transparent);}
+
+.actions{display:flex;gap:var(--s4);flex-wrap:wrap;align-items:center;margin-top:var(--s8);}
+
+.social-inline{
+  display:flex;gap:var(--s5);margin-top:var(--s10);
+  font-family:var(--font-mono);font-size:var(--text-sm);flex-wrap:wrap;
+}
+.social-inline a{color:var(--text-muted);display:inline-flex;gap:var(--s2);align-items:center;}
+.social-inline a:hover{color:var(--sprout);}
+
+/* --- "Now" / soil strip --- */
+.soil{background:var(--bg-soil);color:var(--text-on-soil);}
+.soil h1,.soil h2,.soil h3{color:var(--text-on-soil);}
+.soil .section-label{color:var(--sprout-bright);}
+.soil p{color:var(--text-on-soil-muted);}
+.now-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:var(--s6);}
+.now-card{border:1px solid rgba(255,255,255,.09);border-radius:var(--radius-lg);padding:var(--s6);background:rgba(255,255,255,.02);}
+.now-card h3{font-size:var(--text-base);margin-bottom:var(--s2);display:flex;align-items:center;gap:var(--s2);}
+.now-card p{font-size:var(--text-sm);}
+.now-card .k{font-family:var(--font-mono);color:var(--sprout-bright);}
+
+/* --- Page hero (single / list) --- */
+.page-hero{padding:var(--s16) 0 var(--s10);border-bottom:1px solid var(--border);}
+.page-hero__eyebrow{margin-bottom:var(--s5);}
+.page-hero__title{font-size:clamp(2rem,5vw,var(--text-5xl));line-height:1.08;margin:var(--s4) 0 var(--s5);}
+.page-hero__subtitle{font-size:var(--text-xl);color:var(--text-muted);max-width:var(--max-text);}
+.page-hero__meta{
+  font-family:var(--font-mono);font-size:var(--text-sm);color:var(--text-muted);
+  display:flex;gap:var(--s4);flex-wrap:wrap;align-items:center;margin-top:var(--s4);
+}
+
+@media (max-width:640px){
+  .hero{padding:var(--s16) 0 var(--s12);}
+  .section{padding:var(--s16) 0;}
+}

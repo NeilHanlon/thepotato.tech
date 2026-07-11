@@ -1,0 +1,7 @@
+{{/* Twitter/X card meta */}}
+{{- $title := cond .IsHome .Site.Title .Title -}}
+{{- $desc := .Description | default .Site.Params.description -}}
+<meta name="twitter:card" content="{{ cond (isset .Params "image") "summary_large_image" "summary" }}">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $desc }}">
+{{- with .Params.image }}<meta name="twitter:image" content="{{ . | absURL }}">{{- end }}

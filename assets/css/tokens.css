@@ -1,0 +1,122 @@
+/* ==========================================================================
+   thepotato.tech — Design Tokens
+   Forked from the shrug.host editorial system, recolored to a potato palette:
+   russet skin, sprout-green, a rare purple-potato pop. Potato-flesh light,
+   soil dark. Light mode is the default; dark overrides via [data-theme="dark"]
+   and prefers-color-scheme.
+   ========================================================================== */
+
+/* --- Self-hosted fonts (no external requests) --- */
+@font-face{
+  font-family:'Source Serif 4';
+  src:url('/fonts/SourceSerif4.woff2') format('woff2');
+  font-weight:200 900; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'Source Serif 4';
+  src:url('/fonts/SourceSerif4-Italic.woff2') format('woff2');
+  font-weight:200 900; font-style:italic; font-display:swap;
+}
+@font-face{
+  font-family:'Commit Mono';
+  src:url('/fonts/CommitMono-400-Regular.woff2') format('woff2');
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'Commit Mono';
+  src:url('/fonts/CommitMono-400-Italic.woff2') format('woff2');
+  font-weight:400; font-style:italic; font-display:swap;
+}
+@font-face{
+  font-family:'Commit Mono';
+  src:url('/fonts/CommitMono-700-Regular.woff2') format('woff2');
+  font-weight:700; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'Commit Mono';
+  src:url('/fonts/CommitMono-700-Italic.woff2') format('woff2');
+  font-weight:700; font-style:italic; font-display:swap;
+}
+
+/* --- Light mode tokens (default) --- */
+:root{
+  /* Potato palette */
+  --russet:#8a5622;        /* potato skin — links, CTA */
+  --russet-deep:#6f4318;
+  --sprout:#697a2b;        /* light-struck / sprouting green — leitmotif dot */
+  --sprout-bright:#7d9134;
+  --violet:#6a4a86;        /* purple-potato — rare pop (draft chips) */
+
+  /* Backgrounds */
+  --bg:#efe7d6;            /* potato-flesh paper */
+  --bg-surface:#e7dcc5;
+  --bg-elevated:#f6efe1;
+  --bg-soil:#241d12;       /* dark inset sections */
+
+  /* Text */
+  --text:#241d12;          /* soil */
+  --text-muted:#6d5f45;
+  --text-faint:#93856a;
+  --text-on-soil:#f2ead8;
+  --text-on-soil-muted:#c3b591;
+
+  /* Borders */
+  --border:#d8cbac;
+  --border-strong:#c4b492;
+
+  /* Semantic */
+  --link:var(--russet);
+  --link-hover:var(--russet-deep);
+  --dot:var(--sprout);
+
+  /* Shadows */
+  --shadow-sm:0 1px 2px rgba(60,42,16,.10);
+  --shadow-md:0 6px 20px rgba(60,42,16,.10),0 2px 6px rgba(60,42,16,.06);
+
+  /* Typography */
+  --font-mono:'Commit Mono','JetBrains Mono',ui-monospace,monospace;
+  --font-serif:'Source Serif 4',Georgia,ui-serif,serif;
+
+  --text-xs:.75rem; --text-sm:.875rem; --text-base:1rem; --text-lg:1.125rem;
+  --text-xl:1.25rem; --text-2xl:1.5rem; --text-3xl:1.875rem; --text-4xl:2.25rem;
+  --text-5xl:3rem; --text-6xl:3.9rem;
+
+  /* Spacing */
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.25rem; --s6:1.5rem;
+  --s8:2rem; --s10:2.5rem; --s12:3rem; --s16:4rem; --s20:5rem; --s24:6rem;
+
+  /* Layout */
+  --max:1080px; --max-text:680px;
+  --radius:8px; --radius-lg:14px;
+  --nav-h:60px;
+  --tr:.18s ease;
+
+  /* Film-grain overlay */
+  --noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* --- Dark mode: soil at night --- */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --russet:#c8823f; --russet-deep:#dd9a57;
+    --sprout:#9fb653; --sprout-bright:#b6cf63; --violet:#b192d6;
+    --bg:#17130d; --bg-surface:#201a11; --bg-elevated:#2a2216; --bg-soil:#0e0b07;
+    --text:#efe6d4; --text-muted:#b6a884; --text-faint:#8a7c60;
+    --text-on-soil:#efe6d4; --text-on-soil-muted:#b6a884;
+    --border:#33291b; --border-strong:#463a26;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+    --shadow-md:0 6px 20px rgba(0,0,0,.5),0 2px 6px rgba(0,0,0,.3);
+    --noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+}
+:root[data-theme="dark"]{
+  --russet:#c8823f; --russet-deep:#dd9a57;
+  --sprout:#9fb653; --sprout-bright:#b6cf63; --violet:#b192d6;
+  --bg:#17130d; --bg-surface:#201a11; --bg-elevated:#2a2216; --bg-soil:#0e0b07;
+  --text:#efe6d4; --text-muted:#b6a884; --text-faint:#8a7c60;
+  --text-on-soil:#efe6d4; --text-on-soil-muted:#b6a884;
+  --border:#33291b; --border-strong:#463a26;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  --shadow-md:0 6px 20px rgba(0,0,0,.5),0 2px 6px rgba(0,0,0,.3);
+  --noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+}

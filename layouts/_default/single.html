@@ -1,0 +1,43 @@
+{{ define "main" }}
+<article>
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">›</span>
+        {{- if .CurrentSection.Title }}
+        <a href="{{ .CurrentSection.RelPermalink }}">{{ .CurrentSection.Title }}</a>
+        <span aria-hidden="true">›</span>
+        {{- end }}
+        <span aria-current="page">{{ .Title }}</span>
+      </nav>
+      <p class="page-hero__eyebrow eyebrow">
+        <span class="dot dot--pulse" aria-hidden="true"></span>
+        {{ with .Params.eyebrow }}{{ . }}{{ else }}~/{{ .Section }}{{ end }}
+      </p>
+      <h1 class="page-hero__title">{{ .Title }}</h1>
+      {{- with .Description }}<p class="page-hero__subtitle">{{ . }}</p>{{ end }}
+      <div class="page-hero__meta">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+        <span aria-hidden="true">·</span>
+        <span>{{ .ReadingTime }} min read</span>
+        {{- if .Draft }}<span aria-hidden="true">·</span><span class="chip chip--draft">draft</span>{{ end }}
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <div class="prose">
+        {{ .Content }}
+      </div>
+      <div class="post-foot">
+        <span>
+          {{- with .Params.tags }}Filed under {{ delimit . " · " }}{{ else }}{{ .Site.Params.author }}{{ end -}}
+        </span>
+        <a href="{{ .CurrentSection.RelPermalink }}">← All posts</a>
+      </div>
+    </div>
+  </div>
+</article>
+{{ end }}

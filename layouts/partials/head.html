@@ -1,0 +1,45 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+
+<title>{{ if .IsHome }}{{ .Site.Title }} — {{ .Site.Params.description }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta name="author" content="{{ .Site.Params.author }}">
+
+{{- partial "opengraph.html" . }}
+{{- partial "twitter_cards.html" . }}
+{{- partial "schema.html" . }}
+
+<link rel="canonical" href="{{ .Permalink }}">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+{{- with .OutputFormats.Get "rss" }}
+<link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .Permalink }}">
+{{- end }}
+
+<!-- Preload critical fonts -->
+<link rel="preload" href="/fonts/CommitMono-700-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/SourceSerif4.woff2" as="font" type="font/woff2" crossorigin>
+
+<!-- Styles -->
+{{- $tokens     := resources.Get "css/tokens.css" }}
+{{- $base       := resources.Get "css/base.css" }}
+{{- $components := resources.Get "css/components.css" }}
+{{- $layouts    := resources.Get "css/layouts.css" }}
+{{- $css        := slice $tokens $base $components $layouts | resources.Concat "css/main.css" }}
+{{- if hugo.IsProduction }}
+  {{- $css = $css | resources.Minify | resources.Fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+{{- else }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+{{- end }}
+
+<!-- Theme: read preference before render to avoid flash -->
+<script>
+  (function(){
+    var t = localStorage.getItem('potato-theme');
+    if (t) { document.documentElement.setAttribute('data-theme', t); }
+  })();
+</script>

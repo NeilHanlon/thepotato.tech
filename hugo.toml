@@ -1,40 +1,52 @@
-#baseURL = "https://drop1.neilhanlon.me:1313/"
 baseURL = "/"
 languageCode = "en-US"
 title = "Neil Hanlon"
-# Enable comments by entering your Disqus shortname
-disqusShortname = ""
-# Enable Google Analytics by entering your tracking code
-# googleAnalytics = ""
-theme = "hugo-sustain"
+enableRobotsTXT = true
 
 [permalinks]
   post = "/:year/:month/:day/:slug"
 
 [params]
-  avatar = "img/profile.png"
   author = "Neil Hanlon"
-  description = "Neil Hanlon - Senior Network/DevOps/Infrastructure Engineer"
+  description = "Neil Hanlon — Senior Network/DevOps/Infrastructure Engineer"
+  hero_eyebrow = "neil@potato:~$ whoami"
 
-  # Custom assets can be linked with their paths relative to static/
-  custom_css = []
-  custom_scss = ['sass/overrides.scss']
-  custom_js  = []
+  # "What's running" cards on the homepage
+  [[params.now]]
+    title = "Consulting"
+    body = "Infrastructure for growing tech companies via <span class=\"k\">shrugpw.com</span> — compliance, migrations, networks done right."
+  [[params.now]]
+    title = "Rocky Linux"
+    body = "Still building and maintaining the infrastructure. Open source is the good part of this whole thing."
+  [[params.now]]
+    title = "The homelab"
+    body = "FreeIPA, FreeRADIUS, an SSID with a potato in the name, and far too many little agents writing to a database."
 
 [params.social]
-  Github        = "NeilHanlon"
-  Email         = "neil@shrug.pw"
-  Bluesky       = "@shrug.pw"
-  LinkedIn      = "hanlonneil"
-  Signal        = "hScowCEn-H1GKkCrare0m_xOEPqTWxt51pW9SI2bU5TlXrMW9QFD6qHBLqG1jDq9"
-  Keybase       = "nhanlon"
-  #Stackoverflow = "username"
-  #Medium        = "hanlon.neil"
-  Instagram     = "noellathekitty"
+  Github    = "NeilHanlon"
+  Email     = "neil@shrug.pw"
+  Bluesky   = "@shrug.pw"
+  LinkedIn  = "hanlonneil"
+  Signal    = "hScowCEn-H1GKkCrare0m_xOEPqTWxt51pW9SI2bU5TlXrMW9QFD6qHBLqG1jDq9"
+  Keybase   = "nhanlon"
+  Instagram = "noellathekitty"
 
 [params.volunteer]
-  Rocky         = "https://rockylinux.org"
+  Rocky = "https://rockylinux.org"
 
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.highlight]
+    noClasses = false
+    guessSyntax = true
+
+[outputs]
+  home = ["HTML", "RSS"]
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
 
 ## Main Menu
 [[menu.main]]
