@@ -2,7 +2,7 @@
 title: "The WiFi Certificate That Didn't Exist an Hour Ago"
 description: "I taught swamp to drive FreeIPA, then used it to issue my laptop an 802.1X client cert and get onto my own network. Mostly this is about knowing when to write things down."
 date: 2026-07-10T18:30:00-04:00
-draft: true
+draft: false
 categories: ['infrastructure', 'automation']
 tags: ['freeipa', 'swamp', 'pki', '802.1x', 'eap-tls', 'radius', 'homelab', 'devops']
 ---

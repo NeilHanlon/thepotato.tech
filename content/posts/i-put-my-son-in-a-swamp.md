@@ -2,7 +2,7 @@
 title: "I Put My Son in a Swamp"
 description: "I modeled my newborn as a typed resource with a sync method and a stack of reports. It's the newest of five ways I track one baby, and somewhere in the absurdity there's a real reason two exhausted people instrument everything."
 date: 2026-07-11T00:45:00-04:00
-draft: true
+draft: false
 categories: ['automation', 'homelab']
 tags: ['swamp', 'babybuddy', 'parenting', 'home-assistant', 'mcp', 'pebble', 'devops']
 ---
