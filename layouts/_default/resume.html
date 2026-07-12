@@ -1,0 +1,79 @@
+{{ define "body-class" }}page-resume{{ end }}
+
+{{ define "main" }}
+{{ $r := .Site.Data.resume }}
+
+<div class="page-hero">
+  <div class="container">
+    <p class="page-hero__eyebrow eyebrow">
+      <span class="dot dot--pulse" aria-hidden="true"></span> ~/resume
+    </p>
+    <h1 class="page-hero__title">{{ .Title }}</h1>
+    {{- with $r.summary }}<p class="page-hero__subtitle">{{ . }}</p>{{ end }}
+    <div class="actions">
+      {{- with $r.pdf }}<a class="btn btn--primary" href="{{ . }}" rel="noopener">Download PDF →</a>{{ end }}
+      <a class="btn btn--ghost" href="https://shrugpw.com" rel="noopener">Hire me →</a>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div class="resume__grid">
+
+      <aside class="resume__aside">
+        {{- with $r.contact }}
+        <div class="resume__block">
+          <span class="section-label">// contact</span>
+          <ul class="resume__list">
+            {{- with .email }}<li><a href="mailto:{{ . }}">{{ . }}</a></li>{{ end }}
+            {{- with .location }}<li>{{ . }}</li>{{ end }}
+            {{- with .phone }}<li><a href="tel:{{ replace . " " "" }}">{{ . }}</a></li>{{ end }}
+          </ul>
+        </div>
+        {{- end }}
+        {{- range $r.skills }}
+        <div class="resume__block">
+          <span class="section-label">// {{ .group | lower }}</span>
+          <ul class="resume__list resume__list--skills">
+            {{- range .items }}<li>{{ . }}</li>{{ end }}
+          </ul>
+        </div>
+        {{- end }}
+      </aside>
+
+      <div class="resume__main">
+        <span class="section-label resume__heading">// experience</span>
+        <div class="resume__entries">
+          {{- range $r.experience }}{{ template "resume-entry" . }}{{ end }}
+        </div>
+
+        <span class="section-label resume__heading">// education</span>
+        <div class="resume__entries">
+          {{- range $r.education }}{{ template "resume-entry" . }}{{ end }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{{ end }}
+
+{{ define "resume-entry" }}
+<article class="resume-entry">
+  <div class="resume-entry__head">
+    <h3 class="resume-entry__role">{{ .role }}</h3>
+    <span class="resume-entry__period">{{ .period }}</span>
+  </div>
+  <p class="resume-entry__org">
+    {{- if .url }}<a href="{{ .url }}" rel="noopener">{{ .org }}</a>{{ else }}{{ .org }}{{ end }}
+    {{- with .location }} <span class="resume-entry__loc">· {{ . }}</span>{{ end }}
+    {{- with .detail }}<br><span class="resume-entry__detail">{{ . }}</span>{{ end }}
+  </p>
+  {{- with .highlights }}
+  <ul class="resume-entry__highlights">
+    {{- range . }}<li>{{ . | markdownify }}</li>{{ end }}
+  </ul>
+  {{- end }}
+</article>
+{{ end }}

@@ -63,4 +63,4 @@ enableRobotsTXT = true
   name = "resume"
   identifier = "resume"
   weight = 300
-  url = "https://shrugpw.com/resume.pdf"
+  url = "/resume/"
