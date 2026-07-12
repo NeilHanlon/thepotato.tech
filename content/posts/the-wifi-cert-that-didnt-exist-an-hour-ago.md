@@ -127,6 +127,13 @@ The write-safety stuff up top didn't come from wanting clever code. It came from
 asking "what happens if this throws *here*" over and over until the answer
 stopped being "you lose the private key."
 
+And yes, I can hear it: *you could do this with Ansible.* I could do this with
+Ansible. I *have* done this with Ansible — there's a `freeipa` collection, it's
+real, it works. You **should** do this with Ansible... probably? I went with swamp
+because I wanted the versioned data and the models that read each other, and a
+playbook doesn't hand me that. But if you just need certs issued and you already
+live in playbooks, nobody's going to arrest you for reaching for the boring tool.
+
 The packages are open source on the swamp registry. If you run FreeIPA and want
 to stop hand-driving it — or you just like arguing about when to persist a
 failure — come find me.
