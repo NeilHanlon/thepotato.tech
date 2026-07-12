@@ -106,6 +106,7 @@ experience:
   - period: 2020—
     role: 'Director, Infrastructure'
     org: Rocky Enterprise Software Foundation (RESF) — Rocky Linux
+    location: Remote (Volunteer)
     highlights:
       - >-
         Co-founded and lead infrastructure for the open source rebuild of CentOS
@@ -138,6 +139,7 @@ experience:
   - period: 2020—
     role: Founding Board Member
     org: Rocky Enterprise Software Foundation (RESF)
+    location: Remote (Volunteer)
     highlights:
       - >-
         Established the RESF to support community-driven governance,
@@ -152,6 +154,7 @@ experience:
   - period: 2020—
     role: Contributor and Packager
     org: The Fedora Project
+    location: Remote (Volunteer)
     url: 'https://fedoraproject.org'
     highlights:
       - Maintain and test packages in EPEL and Fedora branches.
