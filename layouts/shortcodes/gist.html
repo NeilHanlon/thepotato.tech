@@ -1,0 +1,10 @@
+{{- /*
+  Local replacement for Hugo's built-in `gist` shortcode, which was
+  deprecated in v0.143.0. Same call signature:
+
+    {{< gist USERNAME GIST_ID [FILE] >}}
+
+  Embeds a GitHub gist via its JS include. The optional third argument
+  scopes the embed to a single file within the gist.
+*/ -}}
+<script type="application/javascript" src="https://gist.github.com/{{ index .Params 0 }}/{{ index .Params 1 }}.js{{ with .Get 2 }}?file={{ . }}{{ end }}"></script>

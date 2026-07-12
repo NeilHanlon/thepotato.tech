@@ -11,13 +11,13 @@ For more check out my academic & professional [resume].
 
 I'm also available for [consulting].
 
-Contact me at [@NeilHanlon] or by yelling really really loud.
+Contact me at [@shrug.pw] or by yelling really really loud.
 
 
 
 [projects]: /projects
 [resume]: https://shrug.pw/resume.pdf
-[@NeilHanlon]: https://bsky.app/profile/shrug.pw
+[@shrug.pw]: https://bsky.app/profile/shrug.pw
 [instagram]: https://instagram.com/noellathekitty
 [consulting]: https://shrugpw.com
 

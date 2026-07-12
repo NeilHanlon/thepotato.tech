@@ -16,11 +16,11 @@ enableRobotsTXT = true
     title = "Consulting"
     body = "Infrastructure for growing tech companies via <span class=\"k\">shrugpw.com</span> — compliance, migrations, networks done right."
   [[params.now]]
-    title = "Rocky Linux"
-    body = "Still building and maintaining the infrastructure. Open source is the good part of this whole thing."
-  [[params.now]]
     title = "The homelab"
     body = "FreeIPA, FreeRADIUS, an SSID with a potato in the name, and far too many little agents writing to a database."
+  [[params.now]]
+    title = "Fedora / RISC-V"
+    body = "Packaging, build systems, and a standing campaign to get more of Fedora booting on RISC-V hardware that mostly doesn't want to. Open source is the good part of this whole thing."
 
 [params.social]
   Github    = "NeilHanlon"
