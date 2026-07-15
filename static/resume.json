@@ -71,6 +71,17 @@
         "Owned alerting/on-call infrastructure; migrated incident workflows from PagerDuty to OpsGenie.",
         "Introduced Apache Airflow for analytics engineering, improving billing/reporting pipelines."
       ]
+    },
+    {
+      "name": "ResolveX Inc.",
+      "position": "Advisory Board Member & Technical Advisor",
+      "url": "https://resolvex.com",
+      "location": "Remote",
+      "startDate": "2025",
+      "highlights": [
+        "Advise on infrastructure architecture and operational resilience for advanced call-center software serving crisis helplines, including the 988 Suicide & Crisis Lifeline.",
+        "Provide scaling and reliability guidance for a team building mission-critical systems for mental-health and crisis lines."
+      ]
     }
   ],
   "volunteer": [
@@ -81,14 +92,14 @@
       "startDate": "2020",
       "endDate": "2026",
       "highlights": [
-        "Co-founded and lead infrastructure for the open source rebuild of CentOS Linux (Rocky Linux), coordinating a global team of more than thirty volunteers.",
-        "Design and operate hybrid infrastructure spanning public cloud and physical data centers for global mirror distribution, CI/CD pipelines, and release engineering workflows.",
-        "Build and maintain scalable public-facing services — Koji builders, HTTP/RSYNC pools, mirrorlist, and signing infrastructure — supporting 3 billion+ requests/month and 1+ PB/month of traffic.",
-        "Develop and maintain Peridot, the open source build system powering Rocky Linux and CIQ's RHEL-derivative product lifecycle, for scalable, reproducible, secure builds.",
-        "Build and maintain a cryptographic enclave for UEFI Secure Boot signing, enabling trusted boot for Rocky Linux and downstream derivatives.",
-        "Architect secure-by-default systems and enforce best practices in CI/CD, credential management, artifact signing, and endpoint access control.",
-        "Lead incident response and coordinate recovery for critical infrastructure outages across multiple time zones and providers.",
-        "Manage infrastructure sponsorships and partner relationships for long-term project sustainability and cost-effective operations."
+        "Co-founded and led infrastructure for the open source rebuild of CentOS Linux (Rocky Linux), coordinating a global team of more than thirty volunteers.",
+        "Designed and operated hybrid infrastructure spanning public cloud and physical data centers for global mirror distribution, CI/CD pipelines, and release engineering workflows.",
+        "Built and maintained scalable public-facing services — Koji builders, HTTP/RSYNC pools, mirrorlist, and signing infrastructure — supporting 3 billion+ requests/month and 1+ PB/month of traffic.",
+        "Developed and maintained Peridot, the open source build system powering Rocky Linux and CIQ's RHEL-derivative product lifecycle, for scalable, reproducible, secure builds.",
+        "Built and maintained a cryptographic enclave for UEFI Secure Boot signing, enabling trusted boot for Rocky Linux and downstream derivatives.",
+        "Architected secure-by-default systems and enforced best practices in CI/CD, credential management, artifact signing, and endpoint access control.",
+        "Led incident response and coordinated recovery for critical infrastructure outages across multiple time zones and providers.",
+        "Managed infrastructure sponsorships and partner relationships for long-term project sustainability and cost-effective operations."
       ]
     },
     {
@@ -99,8 +110,8 @@
       "endDate": "2026",
       "highlights": [
         "Established the RESF to support community-driven governance, infrastructure, and lifecycle planning for Rocky Linux and other open source projects.",
-        "Represent technical community perspectives on the RESF Advisory Board and help shape project direction and policy.",
-        "Advise on growth, sustainability, and alignment between corporate partners and community goals."
+        "Represented technical community perspectives on the RESF Advisory Board and helped shape project direction and policy.",
+        "Advised on growth, sustainability, and alignment between corporate partners and community goals."
       ]
     },
     {
@@ -114,6 +125,31 @@
         "Contributed to the Fedora RISC-V SIG, supporting alt-arch enablement and early ecosystem work.",
         "Participated in Fedora CommOps, helping shape community engagement strategies and project visibility.",
         "Advocate for upstream-first workflows and maintain contributor-friendly build/test automation."
+      ]
+    },
+    {
+      "organization": "OpenStack",
+      "position": "OpenStack-Ansible Core Reviewer",
+      "url": "https://opendev.org/openstack/openstack-ansible",
+      "location": "Remote (Volunteer)",
+      "startDate": "2022",
+      "highlights": [
+        "Core reviewer for OpenStack-Ansible, maintaining and improving the deployment tooling and automation for running OpenStack on enterprise Linux.",
+        "Review patches, mentor contributors, and help keep releases stable and secure.",
+        "Focus on test coverage, CI modernization, and tighter integration with upstream OpenStack projects."
+      ]
+    },
+    {
+      "organization": "The CentOS Project",
+      "position": "SIG Contributor — Cloud, NFV, and Hyperscale",
+      "url": "https://www.centos.org",
+      "location": "Remote (Volunteer)",
+      "startDate": "2020",
+      "highlights": [
+        "Project Team Lead (PTL) for RDO's transition into the CentOS Cloud SIG, steering where RDO's OpenStack packaging lives and how it ships.",
+        "Maintain Open vSwitch (OVS) and Open Virtual Network (OVN) packages and their dependencies for the NFV SIG — keeping working versions available for EL9+ users, including Rocky Linux and AlmaLinux, insulated from churn in CentOS Stream.",
+        "Contribute packaging and maintenance effort to the Hyperscale SIG.",
+        "Long-time CentOS user and community member since 2013."
       ]
     }
   ],

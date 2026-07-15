@@ -77,6 +77,67 @@ experience:
       - >-
         Provide open source strategy consulting and technical governance for
         organizations adopting or contributing to FOSS ecosystems.
+  - period: 2025—
+    role: Advisory Board Member & Technical Advisor
+    org: ResolveX Inc.
+    location: Remote
+    url: 'https://resolvex.com'
+    highlights:
+      - >-
+        Advise on infrastructure architecture and operational resilience for
+        advanced call-center software serving crisis helplines, including the
+        988 Suicide & Crisis Lifeline.
+      - >-
+        Provide scaling and reliability guidance for a team building
+        mission-critical systems for mental-health and crisis lines.
+  - period: 2022—
+    role: OpenStack-Ansible Core Reviewer
+    org: OpenStack
+    location: Remote (Volunteer)
+    url: 'https://opendev.org/openstack/openstack-ansible'
+    highlights:
+      - >-
+        Core reviewer for OpenStack-Ansible, maintaining and improving the
+        deployment tooling and automation for running OpenStack on enterprise
+        Linux.
+      - >-
+        Review patches, mentor contributors, and help keep releases stable and
+        secure.
+      - >-
+        Focus on test coverage, CI modernization, and tighter integration with
+        upstream OpenStack projects.
+  - period: 2020—
+    role: 'SIG Contributor — Cloud, NFV, and Hyperscale'
+    org: The CentOS Project
+    location: Remote (Volunteer)
+    url: 'https://www.centos.org'
+    highlights:
+      - >-
+        **Project Team Lead (PTL)** for RDO's transition into the CentOS Cloud
+        SIG, steering where RDO's OpenStack packaging lives and how it ships.
+      - >-
+        Maintain Open vSwitch (OVS) and Open Virtual Network (OVN) packages and
+        their dependencies for the NFV SIG — keeping working versions available
+        for EL9+ users, including Rocky Linux and AlmaLinux, insulated from
+        churn in CentOS Stream.
+      - Contribute packaging and maintenance effort to the Hyperscale SIG.
+      - Long-time CentOS user and community member since 2013.
+  - period: 2020—
+    role: Contributor and Packager
+    org: The Fedora Project
+    location: Remote (Volunteer)
+    url: 'https://fedoraproject.org'
+    highlights:
+      - Maintain and test packages in EPEL and Fedora branches.
+      - >-
+        Contributed to the Fedora RISC-V SIG, supporting alt-arch enablement and
+        early ecosystem work.
+      - >-
+        Participated in Fedora CommOps, helping shape community engagement
+        strategies and project visibility.
+      - >-
+        Advocate for upstream-first workflows and maintain contributor-friendly
+        build/test automation.
   - period: 2021–2025
     role: Senior Infrastructure Engineer
     org: Ctrl IQ (CIQ)
@@ -109,32 +170,34 @@ experience:
     location: Remote (Volunteer)
     highlights:
       - >-
-        Co-founded and lead infrastructure for the open source rebuild of CentOS
+        Co-founded and led infrastructure for the open source rebuild of CentOS
         Linux (Rocky Linux), coordinating a global team of more than thirty
         volunteers.
       - >-
-        Design and operate hybrid infrastructure spanning public cloud and
+        Designed and operated hybrid infrastructure spanning public cloud and
         physical data centers for global mirror distribution, CI/CD pipelines,
         and release engineering workflows.
       - >-
-        Build and maintain scalable public-facing services — Koji builders,
+        Built and maintained scalable public-facing services — Koji builders,
         HTTP/RSYNC pools, mirrorlist, and signing infrastructure — supporting
         **3 billion+ requests/month** and **1+ PB/month** of traffic.
       - >-
-        Develop and maintain **Peridot**, the open source build system powering
-        Rocky Linux and CIQ's RHEL-derivative product lifecycle, for scalable,
-        reproducible, secure builds.
+        Developed and maintained **Peridot**, the open source build system
+        powering Rocky Linux and CIQ's RHEL-derivative product lifecycle, for
+        scalable, reproducible, secure builds.
       - >-
-        Build and maintain a cryptographic enclave for UEFI Secure Boot signing,
-        enabling trusted boot for Rocky Linux and downstream derivatives.
+        Built and maintained a cryptographic enclave for UEFI Secure Boot
+        signing, enabling trusted boot for Rocky Linux and downstream
+        derivatives.
       - >-
-        Architect secure-by-default systems and enforce best practices in CI/CD,
-        credential management, artifact signing, and endpoint access control.
+        Architected secure-by-default systems and enforced best practices in
+        CI/CD, credential management, artifact signing, and endpoint access
+        control.
       - >-
-        Lead incident response and coordinate recovery for critical
+        Led incident response and coordinated recovery for critical
         infrastructure outages across multiple time zones and providers.
       - >-
-        Manage infrastructure sponsorships and partner relationships for
+        Managed infrastructure sponsorships and partner relationships for
         long-term project sustainability and cost-effective operations.
   - period: 2020–2026
     role: Founding Board Member
@@ -146,27 +209,11 @@ experience:
         infrastructure, and lifecycle planning for Rocky Linux and other open
         source projects.
       - >-
-        Represent technical community perspectives on the RESF Advisory Board
-        and help shape project direction and policy.
+        Represented technical community perspectives on the RESF Advisory Board
+        and helped shape project direction and policy.
       - >-
-        Advise on growth, sustainability, and alignment between corporate
+        Advised on growth, sustainability, and alignment between corporate
         partners and community goals.
-  - period: 2020—
-    role: Contributor and Packager
-    org: The Fedora Project
-    location: Remote (Volunteer)
-    url: 'https://fedoraproject.org'
-    highlights:
-      - Maintain and test packages in EPEL and Fedora branches.
-      - >-
-        Contributed to the Fedora RISC-V SIG, supporting alt-arch enablement and
-        early ecosystem work.
-      - >-
-        Participated in Fedora CommOps, helping shape community engagement
-        strategies and project visibility.
-      - >-
-        Advocate for upstream-first workflows and maintain contributor-friendly
-        build/test automation.
   - period: 2015–2021
     role: 'DevOps Engineer, Senior Network Engineer'
     org: KAYAK Software Corporation
