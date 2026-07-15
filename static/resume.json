@@ -1,0 +1,189 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "Neil Hanlon",
+    "label": "Infrastructure Consultant",
+    "email": "neil@shrug.pw",
+    "url": "https://thepotato.tech",
+    "summary": "Infrastructure consultant specializing in Linux systems, automation, and reliable platform delivery. I help organizations build, migrate, and operate production environments — and contribute upstream to the tools that power them.",
+    "location": {
+      "region": "Massachusetts",
+      "countryCode": "US"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "NeilHanlon",
+        "url": "https://github.com/NeilHanlon"
+      },
+      {
+        "network": "Bluesky",
+        "username": "shrug.pw",
+        "url": "https://bsky.app/profile/shrug.pw"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "Shrug PW Consulting",
+      "position": "Owner, Principal Consultant",
+      "url": "https://shrugpw.com",
+      "location": "Bedford, MA",
+      "startDate": "2025",
+      "highlights": [
+        "Architect and deploy bare metal, containerized, and cloud infrastructure for clients across defense, education, and enterprise sectors.",
+        "Design and build standardized Linux system images (Ubuntu, RHEL, Rocky) and deployment pipelines using Ansible, Puppet, and custom automation tooling.",
+        "Lead complex infrastructure migrations and disaster recovery efforts, including crisis response and system restoration for time-critical environments.",
+        "Build custom monitoring, alerting, and observability solutions delivering actionable insights while reducing alert fatigue.",
+        "Design and deploy production network infrastructure including routing, firewalls, VLANs, wireless, and fiber connectivity for multi-site organizations.",
+        "Develop provisioning documentation, runbooks, and support procedures for client handoff and knowledge transfer.",
+        "Provide open source strategy consulting and technical governance for organizations adopting or contributing to FOSS ecosystems."
+      ]
+    },
+    {
+      "name": "Ctrl IQ (CIQ)",
+      "position": "Senior Infrastructure Engineer",
+      "location": "Remote",
+      "startDate": "2021",
+      "endDate": "2025",
+      "highlights": [
+        "Performed formally-sponsored contributions to Rocky Linux and RESF infrastructure, bridging company goals and upstream project sustainability.",
+        "Led cross-functional efforts to scale CIQ's build and release infrastructure for RHEL-derivative products based on Rocky.",
+        "Designed and maintained hybrid CI/CD pipelines for open and closed-source systems, integrating GitLab, Koji, and internal build/test runners.",
+        "Championed upstream-first development practices, ensuring internal engineering work could be contributed back cleanly to RESF when appropriate.",
+        "Provided technical leadership and emergency response across CIQ's internal infrastructure stack — networking, packaging, on-call rotation.",
+        "Advised CIQ leadership on open source community dynamics, trust-building, and governance best practices."
+      ]
+    },
+    {
+      "name": "KAYAK Software Corporation",
+      "position": "DevOps Engineer, Senior Network Engineer",
+      "location": "Concord, MA",
+      "startDate": "2015",
+      "endDate": "2021",
+      "highlights": [
+        "Managed production and corporate networks across two data centers and 14+ global offices.",
+        "Re-architected core switching to a modern spine/leaf fabric using BigSwitch Cloud Fabric (OpenDaylight).",
+        "Replaced aging Juniper gear and unstable edge routers; improved interconnects with private links and a Boston POP for AWS Direct Connect.",
+        "Designed and implemented a PII \"bubble\" to segment sensitive workloads from general production traffic.",
+        "Led CDN modernization using Fastly + Varnish; built traffic shaping and A/B testing config.",
+        "Maintained RADIUS and SAML-based MFA proxies for secure access to network gear.",
+        "Owned alerting/on-call infrastructure; migrated incident workflows from PagerDuty to OpsGenie.",
+        "Introduced Apache Airflow for analytics engineering, improving billing/reporting pipelines."
+      ]
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "Rocky Enterprise Software Foundation (RESF) — Rocky Linux",
+      "position": "Director, Infrastructure",
+      "location": "Remote (Volunteer)",
+      "startDate": "2020",
+      "endDate": "2026",
+      "highlights": [
+        "Co-founded and lead infrastructure for the open source rebuild of CentOS Linux (Rocky Linux), coordinating a global team of more than thirty volunteers.",
+        "Design and operate hybrid infrastructure spanning public cloud and physical data centers for global mirror distribution, CI/CD pipelines, and release engineering workflows.",
+        "Build and maintain scalable public-facing services — Koji builders, HTTP/RSYNC pools, mirrorlist, and signing infrastructure — supporting 3 billion+ requests/month and 1+ PB/month of traffic.",
+        "Develop and maintain Peridot, the open source build system powering Rocky Linux and CIQ's RHEL-derivative product lifecycle, for scalable, reproducible, secure builds.",
+        "Build and maintain a cryptographic enclave for UEFI Secure Boot signing, enabling trusted boot for Rocky Linux and downstream derivatives.",
+        "Architect secure-by-default systems and enforce best practices in CI/CD, credential management, artifact signing, and endpoint access control.",
+        "Lead incident response and coordinate recovery for critical infrastructure outages across multiple time zones and providers.",
+        "Manage infrastructure sponsorships and partner relationships for long-term project sustainability and cost-effective operations."
+      ]
+    },
+    {
+      "organization": "Rocky Enterprise Software Foundation (RESF)",
+      "position": "Founding Board Member",
+      "location": "Remote (Volunteer)",
+      "startDate": "2020",
+      "endDate": "2026",
+      "highlights": [
+        "Established the RESF to support community-driven governance, infrastructure, and lifecycle planning for Rocky Linux and other open source projects.",
+        "Represent technical community perspectives on the RESF Advisory Board and help shape project direction and policy.",
+        "Advise on growth, sustainability, and alignment between corporate partners and community goals."
+      ]
+    },
+    {
+      "organization": "The Fedora Project",
+      "position": "Contributor and Packager",
+      "url": "https://fedoraproject.org",
+      "location": "Remote (Volunteer)",
+      "startDate": "2020",
+      "highlights": [
+        "Maintain and test packages in EPEL and Fedora branches.",
+        "Contributed to the Fedora RISC-V SIG, supporting alt-arch enablement and early ecosystem work.",
+        "Participated in Fedora CommOps, helping shape community engagement strategies and project visibility.",
+        "Advocate for upstream-first workflows and maintain contributor-friendly build/test automation."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Wentworth Institute of Technology",
+      "area": "Computer Science",
+      "studyType": "B.S.",
+      "startDate": "2013",
+      "endDate": "2017",
+      "courses": [
+        "Coursework in algorithms, compiler design, networking, security, software architecture, and systems programming."
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "name": "Open Source",
+      "keywords": [
+        "Rocky Linux Infra Lead",
+        "Fedora / EPEL Contributor",
+        "Community Governance",
+        "Upstream-first Development",
+        "Release Engineering",
+        "OpenELA TSC"
+      ]
+    },
+    {
+      "name": "Systems Engineering",
+      "keywords": [
+        "Secure Infra Architecture",
+        "CDN + Edge Services",
+        "Cloud: AWS, Azure, GCP",
+        "Infrastructure-as-Code",
+        "Containers / OCI / K8s"
+      ]
+    },
+    {
+      "name": "Networking",
+      "keywords": [
+        "BGP, OSPF, Juniper",
+        "Linux Routing / Firewalling",
+        "Cisco ASA / R+S",
+        "Arista EOS, Mikrotik",
+        "IPv6 Transition",
+        "SD-WAN",
+        "Load Balancing / ADC"
+      ]
+    },
+    {
+      "name": "Programming",
+      "keywords": [
+        "Python, Bash, Golang",
+        "Ansible, Puppet, Terraform",
+        "Pulumi, Lua, Ruby, PHP"
+      ]
+    },
+    {
+      "name": "Tooling",
+      "keywords": [
+        "Git / GitOps, CI/CD",
+        "Prometheus, Grafana",
+        "rpm / mock / koji",
+        "GNU/Linux, Ubuntu",
+        "Red Hat Enterprise Linux"
+      ]
+    }
+  ],
+  "meta": {
+    "canonical": "https://thepotato.tech/resume.json",
+    "version": "1"
+  }
+}
