@@ -1,0 +1,93 @@
+<!doctype html><html lang=en-US><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><title>The WiFi Certificate That Didn't Exist an Hour Ago | Neil Hanlon</title><meta name=description content="I taught swamp to drive FreeIPA, then used it to issue my laptop an 802.1X client cert and get onto my own network. Mostly this is about knowing when to write things down."><meta name=author content="Neil Hanlon"><meta property="og:url" content="https://thepotato.tech/posts/the-wifi-cert-that-didnt-exist-an-hour-ago/"><meta property="og:site_name" content="Neil Hanlon"><meta property="og:title" content="The WiFi Certificate That Didn't Exist an Hour Ago"><meta property="og:description" content="I taught swamp to drive FreeIPA, then used it to issue my laptop an 802.1X client cert and get onto my own network. Mostly this is about knowing when to write things down."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:published_time" content="2026-07-10T18:30:00-04:00"><meta property="article:modified_time" content="2026-07-10T18:30:00-04:00"><meta property="article:tag" content="freeipa"><meta property="article:tag" content="swamp"><meta property="article:tag" content="pki"><meta property="article:tag" content="802.1x"><meta property="article:tag" content="eap-tls"><meta property="article:tag" content="radius"><meta property="article:tag" content="homelab"><meta property="article:tag" content="devops"><meta name=twitter:card content="summary"><meta name=twitter:title content="The WiFi Certificate That Didn't Exist an Hour Ago"><meta name=twitter:description content="I taught swamp to drive FreeIPA, then used it to issue my laptop an 802.1X client cert and get onto my own network. Mostly this is about knowing when to write things down."><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"\"The WiFi Certificate That Didn't Exist an Hour Ago\"","description":"\"I taught swamp to drive FreeIPA, then used it to issue my laptop an 802.1X client cert and get onto my own network. Mostly this is about knowing when to write things down.\"","url":"https:\/\/thepotato.tech\/posts\/the-wifi-cert-that-didnt-exist-an-hour-ago\/","datePublished":"2026-07-10T18:30:00-04:00","dateModified":"2026-07-10T18:30:00-04:00","author":{"@type":"Person","name":"Neil Hanlon","url":"https:\/\/thepotato.tech\/"}}</script><link rel=canonical href=https://thepotato.tech/posts/the-wifi-cert-that-didnt-exist-an-hour-ago/><link rel=icon type=image/svg+xml href=/favicon.svg><link rel=preload href=/fonts/CommitMono-700-Regular.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/SourceSerif4.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/main.min.83137fb8ee2c56c3166f759566534c10bdff4d08bb3ceaf9cc149336d5c4316f.css integrity="sha256-gxN/uO4sVsMWb3WVZlNMEL3/TQi7POr5zBSTNtXEMW8="><script>(function(){var e=localStorage.getItem("potato-theme");e&&document.documentElement.setAttribute("data-theme",e)})()</script></head><body><a href=#main-content class=skip-link>Skip to content</a><nav class=navbar aria-label="Main navigation"><div class=navbar__inner><a href=/ class=navbar__logo aria-label="Neil Hanlon home"><img class=spud src=/favicon.svg alt aria-hidden=true width=24 height=24>
+<span>thepotato.tech</span>
+<span class=shrug aria-hidden=true>¯\_(ツ)_/¯</span>
+</a><button class=navbar__hamburger aria-label="Toggle navigation" aria-expanded=false id=nav-hamburger>
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="2" y1="5" x2="18" y2="5"/><line x1="2" y1="10" x2="18" y2="10"/><line x1="2" y1="15" x2="18" y2="15"/></svg></button><ul class=navbar__links id=nav-links role=list><li><a href=/posts/>posts</a></li><li><a href=/projects/>projects</a></li><li><a href=/resume/>resume</a></li><li><button class=theme-toggle id=theme-toggle aria-label="Toggle dark mode">
+<svg class="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<svg class="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<span class=sr-only>Toggle theme</span></button></li></ul></div></nav><script>(function(){var e,t,n=document.getElementById("theme-toggle");n&&n.addEventListener("click",function(){var t,n=document.documentElement,e=n.getAttribute("data-theme");e||(e=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),t=e==="dark"?"light":"dark",n.setAttribute("data-theme",t),localStorage.setItem("potato-theme",t)}),e=document.getElementById("nav-hamburger"),t=document.getElementById("nav-links"),e&&t&&e.addEventListener("click",function(){var n=t.classList.toggle("is-open");e.setAttribute("aria-expanded",n?"true":"false")})})()</script><main class=site-main id=main-content><article><div class=page-hero><div class=container><nav class=breadcrumb aria-label=Breadcrumb><a href=/>Home</a>
+<span aria-hidden=true>›</span>
+<a href=/posts/>Posts</a>
+<span aria-hidden=true>›</span>
+<span aria-current=page>The WiFi Certificate That Didn't Exist an Hour Ago</span></nav><p class="page-hero__eyebrow eyebrow"><span class="dot dot--pulse" aria-hidden=true></span>
+~/posts</p><h1 class=page-hero__title>The WiFi Certificate That Didn't Exist an Hour Ago</h1><p class=page-hero__subtitle>I taught swamp to drive FreeIPA, then used it to issue my laptop an 802.1X client cert and get onto my own network. Mostly this is about knowing when to write things down.</p><div class=page-hero__meta><time datetime=2026-07-10>July 10, 2026</time>
+<span aria-hidden=true>·</span>
+<span>6 min read</span></div></div></div><div class=section><div class=container><div class=prose><p>My laptop is on WiFi right now on a certificate that didn&rsquo;t exist an hour ago. I
+made the keypair, my own CA signed it, the private key went into my secret store,
+and the machine authenticated onto the 802.1X network and pulled a DHCP lease —
+all through code I&rsquo;d finished writing about twenty minutes earlier. I want to
+talk about the boring part that made it safe, because the boring part is the only
+part I&rsquo;d defend.</p><h2 id=the-itch>The itch</h2><p>I run <a href=https://www.freeipa.org/>FreeIPA</a> at home. Kerberos realm, LDAP, a CA —
+the same identity stack plenty of companies run, except mine is operated entirely
+by hand. <code>kinit</code>, the <code>ipa</code> CLI, a shell script when I&rsquo;m feeling fancy. Every
+cert, every group, every bit of it is me typing commands and hoping I remembered
+the flags. It works, and it&rsquo;s also exactly the sort of thing I&rsquo;ll fat-finger at
+11pm.</p><p>I wanted it declarative: describe an identity object, have something reconcile
+it, keep a record of what it did, and let me wire one piece of the homelab into
+the next.</p><h2 id=swamp-quickly>swamp, quickly</h2><p><a href=https://github.com/swamp-club/swamp>swamp</a> models real resources as typed
+objects with methods — create, read, mutate — and keeps every run as versioned
+data other models can read. You write extensions in TypeScript. It&rsquo;s the good
+parts of infrastructure-as-code without the pretense that the world holds still.
+FreeIPA had nothing in the registry, so I got to start from scratch, which is my
+favorite way to start.</p><h2 id=not-one-model-a-family>Not one model, a family</h2><p>FreeIPA is a platform, not a service, so I split it into a few small packages
+instead of one enormous one. <code>@shrug/freeipa/domain</code> is read-only: it logs into
+the JSON-RPC API and snapshots the realm, the server inventory, the replication
+topology. Understand the domain before you touch it.</p><p>Then the ones that write: <code>user</code>, <code>group</code>, and <code>cert</code>. Certs got their own
+package on purpose — in FreeIPA a certificate can belong to a user, a host, or a
+service, so hanging cert issuance off the &ldquo;user&rdquo; model would have been wrong the
+second I wanted a device cert. (I wanted a device cert.)</p><p>I built the three write packages at the same time, in parallel: three agents,
+each in its own git worktree, each cloning the shape of the read-only package and
+each carrying an identical copy of the same &ldquo;write-kernel.&rdquo;</p><h3 id=what-the-write-kernel-actually-is>What the write-kernel actually is</h3><p>That last bit needs unpacking, because &ldquo;byte-for-byte identical write-kernel&rdquo; is
+the kind of phrase that sounds like it means something and might not. It&rsquo;s not a
+shared library — each package vendors its own copy. It&rsquo;s a small module that
+every write goes through: it takes the mutation you want, runs it, and decides
+what gets persisted and when. Same code, same rules, in all three packages, so
+&ldquo;how do we write things down&rdquo; gets answered once and copied, not reinvented three
+times slightly differently. Why it&rsquo;s worth copying is the next section.</p><h2 id=the-actual-point-when-do-you-write-it-down>The actual point: when do you write it down?</h2><p>Here&rsquo;s a question that sounds trivial and isn&rsquo;t: when a mutating operation runs,
+<em>when</em> do you record what happened?</p><p>swamp&rsquo;s default guidance — and honestly most people&rsquo;s reflex — is throw before
+you write. If the op fails, persist nothing, because a stored record claiming a
+success the world never delivered is a lie, and downstream models will read that
+lie and act on it. That&rsquo;s correct, and I kept it. But it quietly assumes every
+kind of &ldquo;what happened&rdquo; wants to be written at the same instant, and two of them
+don&rsquo;t.</p><p>The first is <strong>irreplaceable material.</strong> When I issue a cert, the model generates
+a fresh private key, sends the signing request, and the CA signs it. The cert
+exists now. If something after that throws and I&rsquo;d followed &ldquo;throw before
+writing,&rdquo; I&rsquo;d have thrown away the only private key that matches a certificate
+that&rsquo;s already, really, out in the world. So that one flips: write the
+irreplaceable thing the moment it&rsquo;s real, before anything else gets a chance to
+fail.</p><p>The second is <strong>partial failure.</strong> One operation creates a steering group as both
+a user-group and a host-group — two separate calls. If the first lands and the
+second blows up, &ldquo;it failed&rdquo; is technically true and completely useless. What I
+need to know is which half exists, so I can go fix the other one.</p><p>So the kernel follows three rules instead of a slogan:</p><ol><li><strong>State</strong> — the object itself — is written only on success. A failed mutation
+never publishes state that says otherwise. (The original rule, untouched.)</li><li><strong>Irreplaceable material</strong> — a generated key, a signed cert — is written the
+moment it&rsquo;s real, before any later throw can eat it.</li><li>An <strong>audit record</strong> is written on <em>both</em> paths, success and failure. It&rsquo;s
+telemetry, not state; when it says <code>success: false</code> it&rsquo;s telling the truth, so
+writing it on failure isn&rsquo;t lying about anything.</li></ol><p>That&rsquo;s the whole idea. &ldquo;Only write on success&rdquo; is a fine default right up until
+the domain hands you a case where it&rsquo;s actively wrong — and then you break it on
+purpose and leave a comment saying why.</p><h2 id=the-payoff-which-is-deliberately-boring>The payoff, which is deliberately boring</h2><p>With that in place the rest is unglamorous, which was the goal. One method makes
+sure the VLAN-steering group exists as both group types and shrugs off &ldquo;already
+exists&rdquo; so I can re-run it. Another generates an RSA keypair and a PKCS#10 request
+in process, hands it to the CA, and stashes the resulting private key encrypted in
+my secret store — never in plaintext, never in the model&rsquo;s own data.</p><p>Then the last mile, by hand, because it should be: pull the signed cert and key
+out to files, point NetworkManager&rsquo;s EAP-TLS profile at them, bring the interface
+up. RADIUS checked the cert against my CA, said yes, dropped me on a VLAN, and
+DHCP did the rest. Online — on an SSID with a potato in the name, because it&rsquo;s my
+network and I get to name the SSID.</p><p>A certificate that didn&rsquo;t exist when I sat down, issued by infrastructure I
+automated the same afternoon, carrying my laptop onto the network. Loop closed.</p><h2 id=why-bother>Why bother</h2><p>I could have typed the <code>ipa</code> commands. I have, a hundred times. But automating
+something is how you&rsquo;re forced to actually understand it — every flag you&rsquo;d been
+copy-pasting on faith, every failure mode you&rsquo;d been quietly getting away with.
+The write-safety stuff up top didn&rsquo;t come from wanting clever code. It came from
+asking &ldquo;what happens if this throws <em>here</em>&rdquo; over and over until the answer
+stopped being &ldquo;you lose the private key.&rdquo;</p><p>And yes, I can hear it: <em>you could do this with Ansible.</em> I could do this with
+Ansible. I <em>have</em> done this with Ansible — there&rsquo;s a <code>freeipa</code> collection, it&rsquo;s
+real, it works. You <strong>should</strong> do this with Ansible&mldr; probably? I went with swamp
+because I wanted the versioned data and the models that read each other, and a
+playbook doesn&rsquo;t hand me that. But if you just need certs issued and you already
+live in playbooks, nobody&rsquo;s going to arrest you for reaching for the boring tool.</p><p>The packages are open source on the swamp registry. If you run FreeIPA and want
+to stop hand-driving it — or you just like arguing about when to persist a
+failure — come find me.</p><hr><p>This is what I do for money too, through <a href=https://shrugpw.com>Shrug PW</a>: bigger
+networks, fewer potatoes.</p></div><div class=post-foot><span>Filed under freeipa · swamp · pki · 802.1x · eap-tls · radius · homelab · devops</span>
+<a href=/posts/>← All posts</a></div></div></div></article></main><footer class=footer aria-label="Site footer"><div class=footer__inner><p class=footer__note>Built with Hugo. No trackers, no popups, occasionally a typo left in on purpose.
+<span aria-hidden=true>¯\_(ツ)_/¯</span><br>&copy; 2026 Neil Hanlon.</p><div class=footer__links><a href=https://github.com/NeilHanlon rel="me noopener">github</a><a href=https://bsky.app/profile/shrug.pw rel="me noopener">bluesky</a>
+<a href=https://shrugpw.com rel=noopener>consulting</a>
+<a href=https://ko-fi.com/kneel rel=noopener>ko-fi</a></div></div></footer></body></html>

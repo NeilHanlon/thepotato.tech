@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Devops on Neil Hanlon</title><link>https://thepotato.tech/tags/devops/</link><description>Recent content in Devops on Neil Hanlon</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Tue, 14 Jul 2026 13:54:48 -0400</lastBuildDate><atom:link href="https://thepotato.tech/tags/devops/index.xml" rel="self" type="application/rss+xml"/><item><title>What Does Fedora Want From Me Today?</title><link>https://thepotato.tech/posts/what-does-fedora-want-from-me-today/</link><pubDate>Tue, 14 Jul 2026 13:54:48 -0400</pubDate><guid>https://thepotato.tech/posts/what-does-fedora-want-from-me-today/</guid><description>&lt;p>I began contributing as a packager with Fedora a few years ago, in concert with
+my participation in founding and bootstrapping Rocky Linux from the ground up.
+That alone deserves a blog post series I may write some day&amp;hellip; but more to the
+point&amp;hellip; I haven&amp;rsquo;t done a great job of maintaining my packages. There&amp;rsquo;s a host
+of reasons I could get into for why, but particularly in light of having a
+newborn and therefore much more limited time and energy than I ever thought was
+possible, optimizing my workflows and maximizing my impact (and reducing
+ownership of things where needed) are the most powerful knobs I can use to make
+the greatest difference not just in Fedora but across all the things I involve
+myself with.&lt;/p></description></item><item><title>I Put My Son in a Swamp</title><link>https://thepotato.tech/posts/i-put-my-son-in-a-swamp/</link><pubDate>Sat, 11 Jul 2026 00:45:00 -0400</pubDate><guid>https://thepotato.tech/posts/i-put-my-son-in-a-swamp/</guid><description>&lt;p>My son is a typed resource now. He has a &lt;code>sync&lt;/code> method that pulls the last seven
+days of his life into a versioned snapshot, a stack of reports that summarize how
+he slept and ate, and — I did think about this — a delete that&amp;rsquo;s careful to be
+idempotent, because deleting the same diaper twice shouldn&amp;rsquo;t be an error.&lt;/p>
+&lt;p>I did not set out to put a baby in a swamp. It followed, the way these things do,
+from having already put everything else in one.&lt;/p></description></item><item><title>The WiFi Certificate That Didn't Exist an Hour Ago</title><link>https://thepotato.tech/posts/the-wifi-cert-that-didnt-exist-an-hour-ago/</link><pubDate>Fri, 10 Jul 2026 18:30:00 -0400</pubDate><guid>https://thepotato.tech/posts/the-wifi-cert-that-didnt-exist-an-hour-ago/</guid><description>&lt;p>My laptop is on WiFi right now on a certificate that didn&amp;rsquo;t exist an hour ago. I
+made the keypair, my own CA signed it, the private key went into my secret store,
+and the machine authenticated onto the 802.1X network and pulled a DHCP lease —
+all through code I&amp;rsquo;d finished writing about twenty minutes earlier. I want to
+talk about the boring part that made it safe, because the boring part is the only
+part I&amp;rsquo;d defend.&lt;/p></description></item></channel></rss>

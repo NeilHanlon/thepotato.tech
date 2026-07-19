@@ -1,0 +1,179 @@
+<!doctype html><html lang=en-US><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><title>What Does Fedora Want From Me Today? | Neil Hanlon</title><meta name=description content="I taught swamp to read Fedora (accounts, Bugzilla, the packager dashboard) so one command tells me what my packages need. The answer was 135 things."><meta name=author content="Neil Hanlon"><meta property="og:url" content="https://thepotato.tech/posts/what-does-fedora-want-from-me-today/"><meta property="og:site_name" content="Neil Hanlon"><meta property="og:title" content="What Does Fedora Want From Me Today?"><meta property="og:description" content="I taught swamp to read Fedora (accounts, Bugzilla, the packager dashboard) so one command tells me what my packages need. The answer was 135 things."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:published_time" content="2026-07-14T13:54:48-04:00"><meta property="article:modified_time" content="2026-07-14T13:54:48-04:00"><meta property="article:tag" content="fedora"><meta property="article:tag" content="swamp"><meta property="article:tag" content="packaging"><meta property="article:tag" content="bugzilla"><meta property="article:tag" content="rpm"><meta property="article:tag" content="devops"><meta property="article:tag" content="adhd"><meta name=twitter:card content="summary"><meta name=twitter:title content="What Does Fedora Want From Me Today?"><meta name=twitter:description content="I taught swamp to read Fedora (accounts, Bugzilla, the packager dashboard) so one command tells me what my packages need. The answer was 135 things."><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"\"What Does Fedora Want From Me Today?\"","description":"\"I taught swamp to read Fedora (accounts, Bugzilla, the packager dashboard) so one command tells me what my packages need. The answer was 135 things.\"","url":"https:\/\/thepotato.tech\/posts\/what-does-fedora-want-from-me-today\/","datePublished":"2026-07-14T13:54:48-04:00","dateModified":"2026-07-14T13:54:48-04:00","author":{"@type":"Person","name":"Neil Hanlon","url":"https:\/\/thepotato.tech\/"}}</script><link rel=canonical href=https://thepotato.tech/posts/what-does-fedora-want-from-me-today/><link rel=icon type=image/svg+xml href=/favicon.svg><link rel=preload href=/fonts/CommitMono-700-Regular.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/SourceSerif4.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/main.min.83137fb8ee2c56c3166f759566534c10bdff4d08bb3ceaf9cc149336d5c4316f.css integrity="sha256-gxN/uO4sVsMWb3WVZlNMEL3/TQi7POr5zBSTNtXEMW8="><script>(function(){var e=localStorage.getItem("potato-theme");e&&document.documentElement.setAttribute("data-theme",e)})()</script></head><body><a href=#main-content class=skip-link>Skip to content</a><nav class=navbar aria-label="Main navigation"><div class=navbar__inner><a href=/ class=navbar__logo aria-label="Neil Hanlon home"><img class=spud src=/favicon.svg alt aria-hidden=true width=24 height=24>
+<span>thepotato.tech</span>
+<span class=shrug aria-hidden=true>¯\_(ツ)_/¯</span>
+</a><button class=navbar__hamburger aria-label="Toggle navigation" aria-expanded=false id=nav-hamburger>
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="2" y1="5" x2="18" y2="5"/><line x1="2" y1="10" x2="18" y2="10"/><line x1="2" y1="15" x2="18" y2="15"/></svg></button><ul class=navbar__links id=nav-links role=list><li><a href=/posts/>posts</a></li><li><a href=/projects/>projects</a></li><li><a href=/resume/>resume</a></li><li><button class=theme-toggle id=theme-toggle aria-label="Toggle dark mode">
+<svg class="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<svg class="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<span class=sr-only>Toggle theme</span></button></li></ul></div></nav><script>(function(){var e,t,n=document.getElementById("theme-toggle");n&&n.addEventListener("click",function(){var t,n=document.documentElement,e=n.getAttribute("data-theme");e||(e=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),t=e==="dark"?"light":"dark",n.setAttribute("data-theme",t),localStorage.setItem("potato-theme",t)}),e=document.getElementById("nav-hamburger"),t=document.getElementById("nav-links"),e&&t&&e.addEventListener("click",function(){var n=t.classList.toggle("is-open");e.setAttribute("aria-expanded",n?"true":"false")})})()</script><main class=site-main id=main-content><article><div class=page-hero><div class=container><nav class=breadcrumb aria-label=Breadcrumb><a href=/>Home</a>
+<span aria-hidden=true>›</span>
+<a href=/posts/>Posts</a>
+<span aria-hidden=true>›</span>
+<span aria-current=page>What Does Fedora Want From Me Today?</span></nav><p class="page-hero__eyebrow eyebrow"><span class="dot dot--pulse" aria-hidden=true></span>
+~/posts</p><h1 class=page-hero__title>What Does Fedora Want From Me Today?</h1><p class=page-hero__subtitle>I taught swamp to read Fedora (accounts, Bugzilla, the packager dashboard) so one command tells me what my packages need. The answer was 135 things.</p><div class=page-hero__meta><time datetime=2026-07-14>July 14, 2026</time>
+<span aria-hidden=true>·</span>
+<span>10 min read</span></div></div></div><div class=section><div class=container><div class=prose><p>I began contributing as a packager with Fedora a few years ago, in concert with
+my participation in founding and bootstrapping Rocky Linux from the ground up.
+That alone deserves a blog post series I may write some day&mldr; but more to the
+point&mldr; I haven&rsquo;t done a great job of maintaining my packages. There&rsquo;s a host
+of reasons I could get into for why, but particularly in light of having a
+newborn and therefore much more limited time and energy than I ever thought was
+possible, optimizing my workflows and maximizing my impact (and reducing
+ownership of things where needed) are the most powerful knobs I can use to make
+the greatest difference not just in Fedora but across all the things I involve
+myself with.</p><p>As many of these things go, I turned to the swamp.</p><h2 id=the-problem>The problem</h2><p>Fedora is by its nature a distributed consensus model playing out in real life.
+It moves constantly, and can be really hard to keep up with. There are attempts
+to help with this, and they deserve talking about: everything that happens in
+the project lands on the <a href=https://fedora-messaging.readthedocs.io/>fedora-messaging</a>
+bus, <a href=https://github.com/fedora-infra/datanommer>datanommer</a> archives all of
+it, datagrepper lets you query the archive, and <a href=https://notifications.fedoraproject.org/>Fedora Notifications</a>
+will happily email you about any of it. And then there&rsquo;s the
+<a href=https://packager-dashboard.fedoraproject.org/>Packager Dashboard</a>, which does
+the actually-hard aggregation work (dist-git, Bodhi, Koschei, Bugzilla, crash
+reports) and presents it per-packager. These are good tools built by people who
+understand the problem.</p><p>But at the end of the day, pulling together all of these sources of information
+into a single &ldquo;pain of glass&rdquo; is a difficult problem, particularly if you have
+ADHD and might spread yourself a bit thin in the best of times with various
+interests. The bus and the notifications are push: streams and inboxes, more
+things arriving whether or not I&rsquo;m ready for them. What I actually needed was a
+pull&mldr; one command I run when I have the spoons for it, that answers &ldquo;what
+does Fedora want from me today?&rdquo; and writes the answer down somewhere I can
+diff later.</p><h2 id=cves-bugs-and-ftbfs-oh-my>CVEs, Bugs, and FTBFS&mldr; oh my!</h2><p>So here&rsquo;s where I ended up:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>swamp workflow run fedora-attention
+</span></span><span class=line><span class=cl>swamp report get <span class=s2>&#34;@kneel/fedora-packager-dashboard/attention&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  --model fedora-dash --markdown
+</span></span></code></pre></div><p>&mldr;and here&rsquo;s a real excerpt of what came back:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl><span class=gh># Fedora attention — neil
+</span></span></span><span class=line><span class=cl><span class=gh></span>
+</span></span><span class=line><span class=cl><span class=k>-</span> **Actionable items:** 135 across 66 packages
+</span></span><span class=line><span class=cl><span class=k>-</span> **Open bugs:** 96 · <span class=gs>**PRs:**</span> 24 · <span class=gs>**Build failures:**</span> 15
+</span></span><span class=line><span class=cl><span class=k>-</span> **Snapshot:** 2026-07-13T15:11:48.390Z
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=gu>## Security / CVE (32)
+</span></span></span><span class=line><span class=cl><span class=gu></span><span class=k>-</span> **d2** <span class=ni>#2455622</span> — CVE-2026-34986 Go JOSE: DoS via crafted JWE object
+</span></span><span class=line><span class=cl><span class=k>-</span> **grpc** <span class=ni>#2408295</span> — CVE-2025-58189 go crypto/tls ALPN negotiation ...
+</span></span><span class=line><span class=cl>  (30 more)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=gu>## FTBFS / build failures (7)
+</span></span></span><span class=line><span class=cl><span class=gu></span><span class=k>-</span> **xastir** <span class=ni>#2435195</span> — xastir: FTBFS in Fedora rawhide/f44
+</span></span><span class=line><span class=cl><span class=k>-</span> **slurm** <span class=ni>#2484402</span> — F45FailsToInstall: slurm
+</span></span><span class=line><span class=cl>  (5 more)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=gu>## Top packages by attention
+</span></span></span><span class=line><span class=cl><span class=gu></span>| Package | Bugs | PRs | Build fails | Total |
+</span></span><span class=line><span class=cl>| ------- | ---- | --- | ----------- | ----- |
+</span></span><span class=line><span class=cl>| grpc    | 12   | 5   | 4           | 21    |
+</span></span><span class=line><span class=cl>| slurm   | 13   | 1   | 0           | 14    |
+</span></span><span class=line><span class=cl>| d2      | 11   | 0   | 2           | 13    |
+</span></span></code></pre></div><p>135 actionable items across 66 packages. Cool. Cool cool cool.</p><p>Weirdly, though, seeing it all at once made the whole thing feel smaller. Most
+of those 32 CVEs are the same handful of Go stdlib and golang.org/x vulns
+fanned out across every Go package I touch (<code>d2</code> and <code>grpc</code> between them
+account for the bulk of it), so in practice it&rsquo;s more like two or three
+rebuild-and-update passes than 32 separate crises. The FTBFS list is seven
+entries across five packages, two of which are <code>xastir</code> reminding me that the
+ham radio software needs love again (it always needs love again).</p><h3 id=whose-packages-are-these-anyway>Whose packages are these, anyway?</h3><p>Funny thing about <code>d2</code>, actually: I don&rsquo;t own it directly at all. I went and
+checked the snapshot — its entry says <code>users: []</code>, <code>groups: ["mkdocs-sig"]</code> —
+so it lands on my list purely through a SIG I&rsquo;m in. And once I knew to look,
+it turns out 41 of my 66 packages are the same way: all mkdocs-sig, accounting
+for 49 of the 135 items. My <em>personal</em> queue is really 25 packages and 86
+items. Which means the report already has its first improvement queued up: it
+doesn&rsquo;t distinguish <em>why</em> a package is mine — direct ownership versus
+inherited through a group ACL — and that distinction changes what I actually
+do about an item. A CVE on a package I personally own is my problem; the same
+CVE on a group-maintained package mostly means checking whether someone else
+in the SIG is already on it. The best part is the data&rsquo;s already sitting in
+every snapshot (each package entry carries its <code>users</code> and <code>groups</code>), so the
+fix is pure rendering. More on extending the report below.</p><h3 id=the-shame-table>The shame table</h3><p><code>grpc</code> deserves its own aside, because it&rsquo;s the poster child for everything
+this post is about. It sits at the top of the attention table with 21 items,
+and it&rsquo;s a giant pain to maintain, largely because of protobuf, which it&rsquo;s
+chained to, and which has an ongoing Fedora change effort against it and has
+been behind upstream for years. I picked grpc up knowing some of that, and I&rsquo;ve
+been going back and forth on dropping it ever since: its surface is huge and I
+don&rsquo;t particularly have the time it deserves. Looking at it holistically in the
+report, it feels like a smaller problem than it does when it&rsquo;s ambushing me one
+bugmail at a time&mldr; sorta. I still might drop it. At minimum I&rsquo;ll be asking
+for co-maintainers (consider this the soft launch of that ask).</p><p>And that &ldquo;top packages by attention&rdquo; table doubles as a divestment worksheet:
+if <code>slurm</code> generates 14 items a cycle and I haven&rsquo;t used it in years, the
+kindest thing I can do for Fedora is help it find a better home. Remember what
+I said up top about reducing ownership? The report is how I&rsquo;m actually going to
+do it, instead of just feeling vaguely bad about it. The good news is there&rsquo;s an
+active group (OpenHPC) that has a vested interest in slurm and so the
+co-maintainer pool is deeper than most.</p><h3 id=what-one-run-actually-does>What one run actually does</h3><p>The <code>fedora-attention</code> workflow behind the two commands up top refreshes three
+models in one shot: the dashboard snapshot (which regenerates the attention
+report as a side effect), the bugs assigned to me in Bugzilla, and my current
+FAS group membership. Every run is versioned data in the swamp datastore, so a
+month from now I can diff what Fedora wanted against what Fedora wants&mldr;
+which will either be a burndown chart or a horror story. I plan to publish it
+either way.</p><h2 id=data-gathering-and-ai-fan-out>Data-gathering and AI fan-out</h2><p>Full disclosure: I didn&rsquo;t type most of the <em>code</em> by hand (these words, yes&mldr;
+the TypeScript, no). I&rsquo;ve been running Claude agents against my swamp
+workspaces for a couple weeks now — the same setup that
+<a href=https://thepotato.tech/posts/the-wifi-cert-that-didnt-exist-an-hour-ago/>issued my WiFi certificate</a>
+and <a href=https://thepotato.tech/posts/i-put-my-son-in-a-swamp/>put my son in a swamp</a> — and this
+went the same way. I described the three planes I wanted (identity, bugs,
+packages), and agents went off to research the APIs and build read-only models
+in parallel while I did other things (changing diapers, probably), with me
+wandering back periodically to say &ldquo;no, not like that.&rdquo; and &ldquo;good god why would
+you think this is a good idea?!&rdquo;</p><p>What landed:</p><ul><li><code>@kneel/fasjson</code> — Fedora Accounts over the FASJSON REST API. Who am I,
+what groups am I in, who else is in this group.</li><li><code>@kneel/bugzilla</code> — Red Hat Bugzilla&rsquo;s REST API. My account, my assigned
+bugs, and open bugs across every component I maintain.</li><li><code>@kneel/fedora-packager-dashboard</code> — the Packager Dashboard&rsquo;s public
+Oraculum v2 API, which does the cross-source aggregation so I don&rsquo;t have to.
+This one was also the durable choice on purpose: it sits <em>above</em> dist-git,
+so it survives the Pagure→Forgejo migration that a direct dist-git model
+would not.</li></ul><p>All three are read-only on purpose. I want to watch this stuff for a good
+while before I let anything mutate it, if I ever do.</p><p>The research pass surfaced the kind of API trivia you only learn by actually
+integrating, and it&rsquo;s now baked into the models so nobody has to learn it
+twice. Red Hat&rsquo;s Bugzilla only accepts <code>Authorization: Bearer</code> header auth
+now; the legacy <code>?Bugzilla_api_key=</code> query param that half the example code on
+the internet still uses gets you an HTTP 400. There&rsquo;s no <code>/whoami</code> endpoint
+(404), so identity goes through <code>/user?match=</code>. <code>component</code> comes back as a
+JSON array even when there&rsquo;s exactly one. And the dashboard&rsquo;s first uncached
+query for a packager can take tens of seconds while Oraculum pulls live data,
+which is worth knowing before you decide it&rsquo;s hung. As far as I can tell none
+of this is written down in any one place, but now it&rsquo;s encoded in TypeScript
+with tests, which is arguably better.</p><p>(The Bugzilla token lives in a swamp vault — backed by PasswordStore and my
+GPG key — and reaches the model through a CEL expression:
+<code>vault.get("bugzilla", "API_TOKEN")</code> — so it&rsquo;s never in a model definition,
+my shell history, or git.)</p><h3 id=your-own-fedora-attention-report>Your own fedora-attention report</h3><p>The extensions are on the swamp registry, so if you&rsquo;re a Fedora packager who
+also wants a morning number:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>swamp extension pull @kneel/fedora-packager-dashboard
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>swamp model create @kneel/fedora-packager-dashboard fedora-dash <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  --global-arg <span class=nv>users</span><span class=o>=</span>&lt;your-fas-username&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>swamp model method run fedora-dash dashboard
+</span></span><span class=line><span class=cl>swamp report get <span class=s2>&#34;@kneel/fedora-packager-dashboard/attention&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  --model fedora-dash --markdown
+</span></span></code></pre></div><p>The dashboard API is public (no token, no Kerberos) so that part works with
+zero credential setup. The model takes <code>users</code>, <code>groups</code>, or <code>packages</code>
+selectors, so you can point it at a whole SIG (<code>groups=go-sig</code>) or a package
+set instead of a person. Add <code>@kneel/bugzilla</code> with a vaulted token if you want
+your assigned-bugs list next to it, <code>@kneel/fasjson</code> for the accounts plane,
+and wire them into a workflow like my <code>fedora-attention</code> so one command
+refreshes everything.</p><p>And if the report doesn&rsquo;t slice things the way your brain wants (mine is tuned
+for &ldquo;CVEs first, then broken builds, then a shame table&rdquo;), you can reshape it.
+The attention report is one small TypeScript file that reads the latest
+<code>dashboard</code> snapshot out of the datastore and renders markdown, and every
+<code>sync</code>&rsquo;d category — Bodhi updates, Koschei state, orphans, new upstream
+releases, crash reports — is already sitting in that snapshot, unrendered.
+Grab the source, copy the report into your own workspace&rsquo;s
+<code>extensions/reports/</code>, and go to town; swamp picks it up on the next bundle,
+and the model doesn&rsquo;t care how many reports read it. You can also add methods
+to the model itself with <code>export const extension</code> if you want a different
+slice of the API. If you build something generally useful, send a pull
+request. &ldquo;Orphan candidates sorted by attention-per-month-of-neglect&rdquo; is
+sitting right there, and so is the one I owe myself from the <code>d2</code> discovery
+above, so group-inherited noise stops masquerading as personal debt.</p><h2 id=the-duct-tape-i-could-hear>The duct tape I could hear</h2><p>The big lesson is the thesis of this whole series: modeling a system forces
+you to actually understand it. And when your attention is the bottleneck,
+versioned pull beats well-intentioned push every time.</p><p>The smaller lesson is the one that wouldn&rsquo;t leave me alone. Two of the three
+models are pure <code>fetch</code>, no dependencies. The third isn&rsquo;t. FASJSON speaks
+<em>only</em> Kerberos/GSSAPI — every endpoint answers <code>WWW-Authenticate: Negotiate</code>,
+and there&rsquo;s no password or token fallback of any kind. The standard answer
+(the one every integration I&rsquo;ve ever seen uses) is to shell out: <code>kinit</code>, then
+<code>curl --negotiate</code>, and now your model depends on a subprocess, an ambient
+credential cache, and whether the machine happens to have krb5-workstation
+installed. That&rsquo;s what my model did. It worked. It was also the only part of
+the whole build that felt like duct tape, and every time the workflow ran I
+could hear it.</p><p>I got annoyed enough to do something unreasonable about it.</p><p>That&rsquo;s the next post.</p><hr><p>This is what I do for money too, through <a href=https://shrugpw.com>Shrug PW</a>:
+making other people&rsquo;s operational queues legible. Fewer ham radio packages,
+usually.</p></div><div class=post-foot><span>Filed under fedora · swamp · packaging · bugzilla · rpm · devops · adhd</span>
+<a href=/posts/>← All posts</a></div></div></div></article></main><footer class=footer aria-label="Site footer"><div class=footer__inner><p class=footer__note>Built with Hugo. No trackers, no popups, occasionally a typo left in on purpose.
+<span aria-hidden=true>¯\_(ツ)_/¯</span><br>&copy; 2026 Neil Hanlon.</p><div class=footer__links><a href=https://github.com/NeilHanlon rel="me noopener">github</a><a href=https://bsky.app/profile/shrug.pw rel="me noopener">bluesky</a>
+<a href=https://shrugpw.com rel=noopener>consulting</a>
+<a href=https://ko-fi.com/kneel rel=noopener>ko-fi</a></div></div></footer></body></html>
