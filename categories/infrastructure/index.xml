@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Infrastructure on Neil Hanlon</title><link>https://thepotato.tech/categories/infrastructure/</link><description>Recent content in Infrastructure on Neil Hanlon</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Sat, 01 Aug 2026 20:40:00 -0400</lastBuildDate><atom:link href="https://thepotato.tech/categories/infrastructure/index.xml" rel="self" type="application/rss+xml"/><item><title>I Violated the Geneva Conventions by Implementing Kerberos in TypeScript</title><link>https://thepotato.tech/posts/kerberos-in-typescript/</link><pubDate>Sat, 01 Aug 2026 20:40:00 -0400</pubDate><guid>https://thepotato.tech/posts/kerberos-in-typescript/</guid><description>&lt;p>A couple weeks ago I shipped a &lt;a href="https://thepotato.tech/posts/what-does-fedora-want-from-me-today/">swamp&lt;/a> workflow
+that tells me what Fedora wants from me on a given day. Three models fan out
+in parallel, pull bugs and builds and package state, and one command writes a
+markdown snapshot I can diff against last week&amp;rsquo;s. It&amp;rsquo;s the workflow I wanted,
+and it runs every time I have the spoons for it.&lt;/p>
+&lt;p>Two of the three models are pure &lt;code>fetch&lt;/code>, and carry no external dependencies. The third isn&amp;rsquo;t.
+The FASJSON service speaks &lt;em>only&lt;/em> Kerberos/GSSAPI: every endpoint requires
+&lt;code>WWW-Authenticate: Negotiate&lt;/code>, and there&amp;rsquo;s no password or token fallback of any
+kind. The standard answer (the one every integration I&amp;rsquo;ve ever seen uses) is to
+shell out: &lt;code>kinit&lt;/code>, then &lt;code>curl --negotiate&lt;/code>, and now your model depends on a
+subprocess, an ambient credential cache, and whether the machine happens to have
+krb5-workstation installed.&lt;/p></description></item><item><title>The WiFi Certificate That Didn't Exist an Hour Ago</title><link>https://thepotato.tech/posts/the-wifi-cert-that-didnt-exist-an-hour-ago/</link><pubDate>Fri, 10 Jul 2026 18:30:00 -0400</pubDate><guid>https://thepotato.tech/posts/the-wifi-cert-that-didnt-exist-an-hour-ago/</guid><description>&lt;p>My laptop is on WiFi right now on a certificate that didn&amp;rsquo;t exist an hour ago. I
+made the keypair, my own CA signed it, the private key went into my secret store,
+and the machine authenticated onto the 802.1X network and pulled a DHCP lease —
+all through code I&amp;rsquo;d finished writing about twenty minutes earlier. I want to
+talk about the boring part that made it safe, because the boring part is the only
+part I&amp;rsquo;d defend.&lt;/p></description></item></channel></rss>

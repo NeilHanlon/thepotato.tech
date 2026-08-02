@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homelab on Neil Hanlon</title><link>https://thepotato.tech/categories/homelab/</link><description>Recent content in Homelab on Neil Hanlon</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Sat, 11 Jul 2026 00:45:00 -0400</lastBuildDate><atom:link href="https://thepotato.tech/categories/homelab/index.xml" rel="self" type="application/rss+xml"/><item><title>I Put My Son in a Swamp</title><link>https://thepotato.tech/posts/i-put-my-son-in-a-swamp/</link><pubDate>Sat, 11 Jul 2026 00:45:00 -0400</pubDate><guid>https://thepotato.tech/posts/i-put-my-son-in-a-swamp/</guid><description>&lt;p>My son is a typed resource now. He has a &lt;code>sync&lt;/code> method that pulls the last seven
+days of his life into a versioned snapshot, a stack of reports that summarize how
+he slept and ate, and — I did think about this — a delete that&amp;rsquo;s careful to be
+idempotent, because deleting the same diaper twice shouldn&amp;rsquo;t be an error.&lt;/p>
+&lt;p>I did not set out to put a baby in a swamp. It followed, the way these things do,
+from having already put everything else in one.&lt;/p></description></item></channel></rss>
