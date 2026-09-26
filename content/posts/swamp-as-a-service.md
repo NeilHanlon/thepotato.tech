@@ -1,6 +1,6 @@
 ---
-title: "Deploying swamp-as-a-service, with swamp itself"
-description: "I stood up 'swamp serve' on a dedicated FreeIPA service account using nothing but swamp models. The tool configured the host that runs the tool, and it fought me the whole way down."
+title: "I Made swamp Deploy swamp"
+description: "I stood up 'swamp serve' as its own FreeIPA service account using nothing but swamp models. The tool configured the host that runs the tool, and then my own OAuth flow spent an afternoon trying to lock me out."
 date: 2026-09-18T16:29:00-04:00
 slug: swamp-as-a-service
 draft: true
@@ -8,71 +8,182 @@ categories: ['automation', 'infrastructure']
 tags: ['swamp', 'freeipa', 'tls', 'oauth', 'systemd', 'dogfooding', 'devops']
 ---
 
-<!-- ROUGH OUTLINE - not prose yet. Beats + notes to self. Cut ruthlessly. -->
+I run swamp for almost everything at this point. So when it came time to stand up
+the swamp control plane itself, as a long-running service on a box in my basement,
+there was really only one acceptable way to do it. I was going to deploy swamp
+using swamp.
 
-## The premise / hook
-- I run swamp for everything. So of course I deployed the swamp control plane
-  itself using swamp. Ouroboros. "the tool configures the host that runs the tool."
-- One rule going in: no Ansible. Everything-as-swamp-models, full audit trail.
-- Target: `swamp serve` running as its own FreeIPA identity (swamp:swamp), on the
-  thinkcenter KVM box.
+I set exactly one rule going in: no Ansible. No shell scripts I'd forget the shape
+of in a month. Every change to the host, the identity, the cert, the systemd unit,
+would be a swamp model run with a versioned record I could query later. If the
+premise of the whole tool is that modeling a system forces you to understand it,
+then the tool deserved to be modeled like anything else.
 
-## Beat 1 - identity first (FreeIPA / SSSD)
-- Why a dedicated service account and not just my user. Identity central, SSSD.
-- Renaming the badly-named -tc models to -thinkcenter. Aside: UUID-keyed state
-  means a cosmetic rename is safe (state doesn't move). Nice swamp property, one line.
+The goal was `swamp serve` running as its own identity: a FreeIPA service account,
+`swamp:swamp`, on the little KVM box I keep for exactly this kind of thing. Central
+identity in FreeIPA and SSSD, no personal credentials baked into a daemon, the
+whole thing legible after the fact. That was the plan. The plan survived about as
+long as plans do.
 
-## Beat 2 - issue the TLS cert THROUGH swamp
-- @shrug/freeipa/cert certRequest: principal-agnostic, in-model RSA keygen.
-- The key never touches local disk - auto-vaulted to pass, referenced by CEL.
-- Deliver cert+key to the host via @adam/cfgmgmt.
-- (this is the "look how clean it is" beat before it all goes wrong)
+## Renaming things, which turned out to be free
 
-## Beat 3 - the two bugs mocks never caught (live-only)
-- Only surfaced against a REAL IPA, not the mocked tests:
-  - (a) audit data-instance name derived from principal -> path-traversal
-    validator rejects service principals containing '/'.
-  - (b) generateCsr was CN-only -> cert had NO SubjectAltName -> modern TLS
-    clients reject it, and this IPA profile won't synthesize a SAN from CN.
-    Fix: dnsNames arg that emits a real SAN.
-- LESSON beat: smoke-before-push / live-prove. Verify the artifact
-  (openssl x509 -ext subjectAltName), don't trust "succeeded."
+Before any of the real work, some housekeeping. The models I'd used to bring the
+box up were named after the machine's old bad name, all `-tc` this and `-tc` that,
+and it bothered me every time I typed it. Normally renaming a stateful thing is a
+small act of courage. Here it wasn't, because swamp keys its state by UUID, not by
+name. The instance keeps its identity across a rename; the name is just a label you
+read. So I renamed the lot to `-thinkcenter` and nothing moved underneath. A
+cosmetic change stayed cosmetic. I mention it only because I spent a second bracing
+for pain that never came, which is rare enough to write down.
 
-## Beat 4 - least privilege, in practice (the ACL grind)
-- svc-freeipa-rw was scoped to USER certs on purpose. Issuing a SERVICE cert
-  needed a break-glass grant.
-- New privilege "swamp service management" (Add Services, then ALSO Modify
-  Services to write userCertificate), bundled into role "swamp writers."
-- The loop: attempt -> 400/ACIError -> add exactly the permission it named -> retry.
-  Each denial teaches the next permission. Least-priv means you WILL iterate.
+## Issuing the cert through swamp, not around it
 
-## Beat 5 - cfgmgmt footguns (short, punchy section)
-- copy_file/file with NO default for `ensure` silently reports "compliant" and
-  no-ops. You deploy nothing and it says success. (the quiet one)
-- Running swamp as a non-root service account needs a CWD it can read or
-  readSwampSources throws EACCES. Fix: runuser + cd to a swamp-owned dir.
+`swamp serve` wants TLS, which means a server certificate, which is usually the
+point where a clean automation story sprouts a manual step. Somebody SSHes in,
+runs `openssl` by hand, copies a key around, and the private key spends the rest of
+its life as a file nobody quite remembers creating.
 
-## Beat 6 - THE MONEY SECTION: OAuth device-flow vs systemd Restart
-- `swamp serve --auth-mode oauth` does a device grant on first start
-  (visit .../device, enter code).
-- Under systemd Restart=on-failure this RESTART-STORMS: each restart mints a
-  fresh device code, the burst rate-limits the device endpoint into 400, and the
-  human can never authorize in time - the code you approve belongs to a process
-  systemd already killed.
-- Root insight: interactive first-run bootstrap fundamentally conflicts with a
-  restart-looping unit.
-- Fixes: bootstrap auth OUTSIDE the unit / Restart=no during first-run / just use
-  token auth. We went token auth - right call for a homelab control plane.
-- (this is probably the strongest standalone beat; consider leading with a cold-open
-  of the restart storm and flashing back? decide later.)
+I didn't want the key to exist as a file I owned. So the cert request went through
+`@shrug/freeipa` and its `certRequest` method: the RSA keypair is generated inside
+the model, the private key is written straight into a vault (pass, in my case) and
+referenced afterward by CEL expression, and cert plus key get delivered to the host
+through `@adam/cfgmgmt`. The key never touches my local disk in a form I have to
+remember to delete. That is the entire reason to do it this way. A secret you never
+handle is a secret you can't fumble.
 
-## Close - meta
-- "The tool configures the host that runs the tool."
-- Every mutation (cert, RBAC grant, host files, systemd unit) is a swamp run with
-  a queryable trail - INCLUDING the two model bugs we fixed mid-flight.
-- Codeable-takeaways box: verify SAN not just issuance; ensure:present is not a
-  default in @adam/cfgmgmt; device-flow != systemd Restart; least-priv = you iterate the ACL.
+That was the version in my head. The version that met the live CA was less tidy.
 
-<!-- TODO before drafting: decide cold-open (restart storm) vs chronological.
-     Pull real UUIDs/principal names or anonymize. Keep family/infra details scrubbed.
-     Link back to the Kerberos post and the Fedora post. -->
+## The two bugs the mocks were too polite to find
+
+Both models had test suites. Both suites passed. Both bugs showed up the instant
+real FreeIPA was on the other end of the wire, which is the oldest lesson in this
+business and apparently one I need re-taught on a schedule.
+
+The first: the audit record swamp writes for a run derives its data-instance name
+from the principal. Service principals have a slash in them, `swamp/host` style. A
+path-traversal guard in the naming code saw the slash, correctly decided it didn't
+want user input containing `/` anywhere near a path, and rejected it. A validator
+doing its job perfectly, on input it was never told to expect. The mock principals
+in the tests were all tidy user-shaped strings, so the suite never had an opinion.
+
+The second was worse because it fails quiet. `generateCsr` built a certificate
+signing request with a common name and nothing else. No Subject Alternative Name.
+The CA happily issued against it, the method reported success, and swamp wrote a
+green run. Then a modern TLS client took one look at a CN-only cert with no SAN and
+refused the connection, because CN-as-hostname has been deprecated for years and
+this particular IPA profile does not synthesize a SAN from the CN for you. The fix
+was a `dnsNames` argument that actually emits the SAN extension on the CSR.
+
+The lesson I keep relearning: "the method succeeded" is a claim about the method,
+not about the artifact. The cert existed. The cert was also useless. Now I verify
+the thing itself before I believe anything upstream of it told me:
+
+```sh
+openssl x509 -in server.crt -noout -ext subjectAltName
+```
+
+If that line doesn't print the name a client will actually ask for, the run was a
+lie no matter what color it was.
+
+## Least privilege means you will iterate the ACL
+
+The service account I use for FreeIPA writes, `svc-freeipa-rw`, was deliberately
+scoped down to issuing user certificates. That was correct when I set it up. It was
+also exactly wrong for the thing I now needed, which was a service cert, and I was
+glad to hit the wall, because I had built it on purpose.
+
+So I did the break-glass dance. FreeIPA handed me a 400 and an ACIError naming the
+permission it wanted. I added that permission, retried, got the next 400 naming the
+next one. "System: Add Services" got me partway; writing the certificate onto the
+service entry needed "System: Modify Services" as well, which is not obvious until
+the error tells you. I bundled the pair into a new privilege, "swamp service
+management," folded that into the "swamp writers" role, and moved on. Each denial
+was the ACL teaching me the next thing it wanted. That loop is annoying and it is
+also the system working: you don't get the permission until you can name exactly why
+you need it.
+
+## Two cfgmgmt footguns, noted for the next person
+
+A couple of things bit me on the config-management side that are worth saying out
+loud, because both fail in the direction of looking fine.
+
+`@adam/cfgmgmt`'s `copy_file` and `file` operations don't default the `ensure`
+field to anything. Leave it off and the operation decides it has nothing to enforce,
+reports "compliant," and does nothing. You get a green run and an empty destination.
+I deployed nothing, successfully, for longer than I'd like to admit before I noticed
+the file I was sure I'd shipped wasn't there. A no-op that reports success is worse
+than an error, because an error at least interrupts you.
+
+The other: running swamp as a non-root service account means the process needs a
+working directory it can actually read, or `readSwampSources` throws EACCES on
+startup and the whole thing falls over before it does anything useful. The fix is
+unglamorous, `runuser` into the account and `cd` into a directory swamp owns, but it
+only becomes obvious once you stop running everything as root and start living with
+the least-privilege setup you asked for.
+
+## The afternoon my own OAuth locked me out
+
+Here is the one I came to tell you about.
+
+`swamp serve --auth-mode oauth` does a device-code grant on first start. You launch
+it, it prints a URL and a short code, you go to the URL, type the code, approve. The
+normal, sane, browser-free way to authenticate a headless daemon. I've done it a
+dozen times.
+
+I also, reasonably, ran the daemon under systemd with `Restart=on-failure`, because
+that is what you do with a service you want to stay up.
+
+These two decisions do not like each other. On first start there's no token yet, so
+the process is, from systemd's point of view, failing. systemd restarts it. The new
+process mints a brand-new device code, prints it, and waits. I go to the URL and
+start typing the code I can see in the journal. systemd, deciding this instance has
+also failed, kills it and starts another, which mints another code. The code I'm
+carefully entering now belongs to a process that no longer exists.
+
+And it gets worse, because now I'm generating device codes in a tight loop, and the
+device endpoint does what any sane endpoint does when hammered: it starts handing
+back 400s and rate-limits me. So even the codes that do belong to a live process
+can't be redeemed. I sat there for an embarrassing stretch racing a restart loop I
+had built, losing, and slowly working out that the tool wasn't broken. The
+deployment was.
+
+The actual insight, once I stopped swearing: an interactive first-run bootstrap and
+a restart-on-failure unit are fundamentally incompatible. One assumes a human will
+take an unbounded amount of time to do a thing exactly once. The other assumes any
+process that isn't already healthy should be replaced immediately and forever. You
+cannot satisfy both at the same time with the same unit.
+
+There are a few honest fixes. Bootstrap the auth outside the unit, get a token, then
+let systemd manage the already-authenticated service. Or set `Restart=no` for the
+first run and turn it on afterward. Or skip the interactive dance entirely and use
+token auth, mint a server token once, hand it to the daemon, no external device
+endpoint in the startup path at all. I went with token auth. For a homelab control
+plane that needs to come back on its own after a reboot, an authentication method
+that can't be defeated by the restart policy is just the correct call. The device
+flow is a lovely piece of UX for a laptop. It has no business in a crash loop.
+
+## The tool configures the host that runs the tool
+
+So it runs now. `swamp serve`, as `swamp:swamp`, with a cert whose SAN I checked by
+hand, on a host whose identity, files, and unit were all put there by swamp model
+runs. Every mutation along the way, the cert request, the RBAC grant, the file
+drops, the unit, is a versioned run I can go back and read, including the two model
+bugs I fixed in the middle of doing it. The audit trail contains its own
+debugging session, which is either good hygiene or a diary I'll regret, depending on
+the day.
+
+<!-- NEIL: if you want receipts here, drop in a real `swamp data` query or a run id showing the certRequest audit record -->
+
+I like this outcome more than I expected to, and not for the reasons I started with.
+The point wasn't purity, or avoiding Ansible for its own sake. It was that when the
+thing that configures the machine is the same thing running on the machine, the
+whole setup stops being a story I tell about the box and becomes something I can
+query. The box can tell me what happened to it. I just had to survive my own OAuth
+flow to get there.
+
+Until next time.
+
+---
+
+I do this to other people's infrastructure for money through
+[Shrug PW](https://shrugpw.com), usually with fewer self-inflicted restart loops.

@@ -1,6 +1,6 @@
 ---
-title: "Why I drive XCP-ng through swamp and not an MCP"
-description: "Vates shipped a first-party Xen Orchestra MCP. It's read-only and chat-mediated. I argue a swamp model is the better substrate for XCP-ng - and not just because I have write support."
+title: "Why I Drive XCP-ng Through swamp and Not an MCP"
+description: "Vates shipped a first-party Xen Orchestra MCP. It is read-only and it lives inside a chat window. Here is why I still reach for a swamp model to run my hypervisors, and it is not the reason you think."
 date: 2026-09-18T16:29:00-04:00
 slug: swamp-versus-an-mcp
 draft: true
@@ -8,60 +8,152 @@ categories: ['automation', 'infrastructure']
 tags: ['swamp', 'xcp-ng', 'xen-orchestra', 'mcp', 'ai', 'devops']
 ---
 
-<!-- ROUGH OUTLINE - not prose yet. Beats + notes. This one is an OPINION piece;
-     frame carefully. NOT "AI bad" - "deterministic substrate + optional agent on top." -->
+Vates shipped an MCP server for Xen Orchestra. First-party, in XO 6.2, announced
+on their blog. If you run XCP-ng and you have been anywhere near the current wave
+of "let the assistant see your infrastructure," this is the thing you were going
+to ask for anyway, and I am glad it exists.
 
-## The hook / foil
-- Vates shipped a first-party XO MCP server (@xen-orchestra/mcp, XO 6.2).
-  Link: xen-orchestra.com/blog/mcp-meets-xen-orchestra
-- It's read-only by design: get_infrastructure_summary, get_pool_dashboard,
-  list_vms/get_vm_details, list_hosts/list_pools, search_documentation.
-- Good foil, genuinely useful. But it's a chat-time READ LENS.
-- Thesis (state it plainly, early): the MCP is a chat-time read lens; swamp is a
-  deterministic control plane. Different jobs.
+I read the tool list and then I went back to my swamp model.
 
-## FRAMING GUARDRAIL (call it out so the comments don't derail)
-- I am not anti-AI or anti-MCP. Put an agent IN FRONT of swamp all you want.
-  The point: the durable execution layer should be deterministic code; the LLM is
-  optional orchestration, not the execution path. Agent proposes, swamp executes + verifies.
+This post is me explaining why, because the obvious answer ("swamp can write and
+the MCP can't") is true but boring, and it is the least interesting thing about
+the difference. Let me get the boring part out of the way and then tell you what
+I actually think.
 
-## The argument - write support is only #1 of many
-1. Write, not just read. MCP is read-only. The model actually provisions:
-   create-from-template + cloud-init, start, stop (clean/hard), snapshot, destroy,
-   plus VIF management.
-2. Deterministic, not probabilistic. A method is code with a fixed contract; an MCP
-   tool call is mediated by an LLM that may not call it, may hallucinate args, may
-   reorder. Same inputs -> same run, every time, in CI.
-3. Composable in a workflow DAG. XO steps wire to other systems via CEL: resolve
-   UUIDs, reserve DHCP on OPNsense, register a Forgejo deploy key, read a token from
-   a vault. MCP tools don't compose into a declarative pipeline.
-4. Gated + verifiable. verify-before-destroy, TLS verification always on (no insecure
-   toggle), UUIDs resolved not hardcoded, 27 injected-fetch unit tests, adversarial
-   security review (10 findings resolved). You can unit-test and code-review a model;
-   you can't unit-test an LLM's decision to call a tool.
-5. Auditable + reproducible. Every run emits a data snapshot + report; reruns are
-   idempotent. Provenance you can point at, not a chat transcript.
-6. Secrets stay in vaults, out of the prompt. Token via authenticationToken cookie
-   from a vault; nothing bleeds into an LLM context window.
-7. Runs unattended / scheduled. cron + serve, no human-in-the-loop chat. An MCP needs
-   an assistant and a person driving it.
-- (NOTE: 8 was "not anti-AI" - promoted it up to the framing guardrail above.
-  Don't repeat it as a list item.)
+## What the MCP is, and what it is for
 
-## Case study spine (real, already done - this is what makes it not-a-rant)
-- The serve-orchestrator VM migration (design/serve-orchestrator-vm.md, Phase 0-1).
-- swamp-serve-01 provisioned end-to-end through @shrug/xen-orchestra, then:
-  - stray VIF pruned via listVifs/deleteVif
-  - DHCP pinned through the OPNsense model
-  - read-only git deploy key registered via the Forgejo model
-- Multi-system, gated, reproducible flow an MCP fundamentally cannot perform.
-- Contrast line: the same fleet through the MCP can only be *described*, never *changed*.
+At the time of writing the XO MCP is read-only by design. It exposes things like
+an infrastructure summary, a pool dashboard, listing VMs and hosts and pools with
+details, and a documentation search.
 
-## Close
-- Land the "deterministic substrate, optional agent on top" thesis one more time.
-- Maybe: what I'd actually want from the XO MCP (read lens) + swamp (control plane)
-  working together.
+<!-- NEIL: reconfirm the XO MCP tool list against the current release at publish -->
 
-<!-- TODO before drafting: re-confirm the XO MCP tool list against the current release
-     at publish time (it will move). Pull concrete numbers/UUIDs from the design doc.
-     Keep the tone confident-not-smug; this one has the highest flame potential. -->
+That is a genuinely useful thing to have. When I am in a conversation and I want
+to know what is running on which host without alt-tabbing to the XO UI, a read
+lens I can talk to is exactly right. I am not here to dunk on it. It does the job
+it was built for.
+
+The job it was built for is the whole point. An MCP server is a way to hand a
+model a set of tools during a conversation. It is a chat-time read lens. My swamp
+model is a deterministic control plane. Those are different objects, and most of
+the "swamp vs MCP" framing you could build out of this post falls apart the moment
+you say that sentence out loud, because they are not competing for the same job.
+
+So before anyone reaches for the pitchfork: this is not an "AI is bad" post. I
+build with these tools every day. I reimplemented [a Kerberos client]({{< ref "kerberos-in-typescript" >}}) mostly by arguing with one. My claim is narrower and
+more boring than that. The durable execution layer, the
+thing that actually mutates your hypervisors, should be deterministic code you can
+test and read. The model belongs in front of that layer, proposing actions, not
+inside it being the thing that runs them. Agent proposes, swamp executes and
+verifies. You can absolutely put an agent in front of a swamp model. I do.
+
+With that said, here is why the control plane is a model and not a tool call.
+
+## Write is the boring reason
+
+Yes: the MCP reads and my `@shrug/xen-orchestra` model writes. It creates VMs from
+a template with cloud-init, starts them, stops them cleanly or hard, snapshots,
+destroys, and manages VIFs. The MCP can tell you a VM is off. The model can turn
+it on. If all you took from this post was "one is read-only," you would not be
+wrong.
+
+But read-only is a design choice Vates made on purpose, and it is the right one
+for a chat tool. I would not want a language model deciding, mid-sentence, to
+`destroy` a VM because it pattern-matched my question as a request. So "it can't
+write" is not really a knock on the MCP. It is a reason the two things are shaped
+differently, which is the actual subject here.
+
+## The reason I actually care: determinism
+
+A swamp method is code with a fixed contract. Same inputs, same run, every time,
+in CI, at 2am, whether or not anyone is watching. It either provisions the VM or
+it returns an error I can read, and the next run does the identical thing.
+
+A tool call mediated by a model is a different animal. The model might call the
+tool. It might call it with the arguments I meant, or with arguments it inferred.
+It might call three tools in an order I did not ask for. Most of the time it is
+fine. "Most of the time it is fine" is a lovely property for a chat assistant and
+a terrible one for the thing that owns your hypervisor fleet. I do not want my
+control plane to have a temperature.
+
+This is the part that does not fit in a feature-comparison table, so it never shows
+up in the "MCP vs X" posts, but it is the whole ballgame. You can unit-test a
+method. You can code-review it. You cannot unit-test a model's decision to call a
+tool, because that decision is not in your repo.
+
+## Composition, provenance, and the parts nobody screenshots
+
+Once the control plane is deterministic code, the good stuff follows almost for
+free.
+
+It composes. An XO step in a swamp workflow wires to everything else through CEL
+expressions: resolve a VM's UUID, then reserve DHCP for it on the OPNsense model,
+then register a read-only deploy key on the Forgejo model, then read a token out
+of a vault. That is a directed graph of typed steps across four different systems.
+A set of chat tools does not assemble itself into a pipeline like that; it waits
+to be invoked, one call at a time, by something with a context window.
+
+It is gated. TLS verification is always on, with no insecure toggle to
+accidentally leave flipped. UUIDs get resolved at runtime instead of pasted in and
+rotting. There is a verify-before-destroy check so a fat-fingered id does not
+delete the wrong guest. There is a pile of injected-fetch unit tests and an
+adversarial security review behind it. None of that is glamorous and all of it is
+the reason I trust the thing unattended.
+
+It is auditable. Every run drops a data snapshot and a report. When something
+breaks, I am reading a versioned record of what the run actually did, not
+scrolling back through a chat transcript trying to reconstruct what the assistant
+decided and why. Reruns are idempotent, so "run it again" is a safe sentence.
+
+And the secrets stay out of the prompt. The XO auth cookie comes from a vault and
+is referenced by the model. It never lands in a context window, which matters more
+every time you remember that context windows get logged.
+
+The unattended part deserves its own sentence, because it is where the two worlds
+stop overlapping entirely. My swamp workflows run on a schedule, headless, through
+`swamp serve`. There is no human and no chat. An MCP fundamentally needs an
+assistant on one end and a person on the other. That is not a flaw in the MCP. It
+is a description of what a chat tool is.
+
+## The proof is a migration I already did
+
+I am wary of arguments that only work on a whiteboard, so here is one that
+actually ran.
+
+I moved my `swamp serve` orchestrator onto its own VM. `swamp-serve-01` was
+provisioned end to end through `@shrug/xen-orchestra`: created from a template,
+brought up, the works. Along the way a stray VIF needed to go, so it went, through
+`listVifs` and `deleteVif` on the same model. Its DHCP reservation got pinned on
+the OPNsense model so the address would not wander. A read-only deploy key got
+registered on the Forgejo model so the box could pull its config and nothing else.
+
+That is one gated, reproducible flow reaching across a hypervisor, a firewall, and
+a git host, every step verified, the whole thing written down. It is exactly the
+kind of work an MCP cannot do, and not because Vates was lazy. It cannot do it
+because a chat-time read lens is the wrong shape for a multi-system mutation you
+want to trust and repeat.
+
+Run that same fleet through the MCP and you get a very good description of it. You
+can ask what is where and get an honest answer. You just cannot change anything,
+and you would not want the description-engine to be the thing that does.
+
+## What I actually want
+
+Both. Obviously both.
+
+I want the read lens in my chat window when I am thinking out loud, and I want the
+deterministic model underneath when it is time to touch the fleet. The healthy
+version of this is the agent reading through the MCP to understand the state, then
+proposing a swamp workflow, which runs and verifies and writes down what it did.
+The model does the thinking. The code does the doing. Neither one pretends to be
+the other.
+
+The XO MCP is a good addition to that world. I just keep my hands on the control
+plane, and the control plane is a swamp model.
+
+Until next time.
+
+---
+
+This is what I do for money too, through [Shrug PW](https://shrugpw.com): making
+other people's infrastructure do what it says it does, on purpose, on a schedule.
