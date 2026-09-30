@@ -1,0 +1,134 @@
+<!doctype html><html lang=en-US><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><title>I Violated the Geneva Conventions by Implementing Kerberos in TypeScript | Neil Hanlon</title><meta name=description content="The FASJSON model only spoke Kerberos, so my swamp had to kinit. I got annoyed enough to reimplement the client half of GSSAPI in TypeScript with no subprocess, and then the immutable datastore started fighting back."><meta name=author content="Neil Hanlon"><meta property="og:url" content="https://thepotato.tech/posts/kerberos-in-typescript/"><meta property="og:site_name" content="Neil Hanlon"><meta property="og:title" content="I Violated the Geneva Conventions by Implementing Kerberos in TypeScript"><meta property="og:description" content="The FASJSON model only spoke Kerberos, so my swamp had to kinit. I got annoyed enough to reimplement the client half of GSSAPI in TypeScript with no subprocess, and then the immutable datastore started fighting back."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:published_time" content="2026-08-01T20:40:00-04:00"><meta property="article:modified_time" content="2026-08-01T20:40:00-04:00"><meta property="article:tag" content="swamp"><meta property="article:tag" content="kerberos"><meta property="article:tag" content="gssapi"><meta property="article:tag" content="fedora"><meta property="article:tag" content="fasjson"><meta property="article:tag" content="freeipa"><meta property="article:tag" content="typescript"><meta property="article:tag" content="security"><meta name=twitter:card content="summary"><meta name=twitter:title content="I Violated the Geneva Conventions by Implementing Kerberos in TypeScript"><meta name=twitter:description content="The FASJSON model only spoke Kerberos, so my swamp had to kinit. I got annoyed enough to reimplement the client half of GSSAPI in TypeScript with no subprocess, and then the immutable datastore started fighting back."><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"\"I Violated the Geneva Conventions by Implementing Kerberos in TypeScript\"","description":"\"The FASJSON model only spoke Kerberos, so my swamp had to kinit. I got annoyed enough to reimplement the client half of GSSAPI in TypeScript with no subprocess, and then the immutable datastore started fighting back.\"","url":"https:\/\/thepotato.tech\/posts\/kerberos-in-typescript\/","datePublished":"2026-08-01T20:40:00-04:00","dateModified":"2026-08-01T20:40:00-04:00","author":{"@type":"Person","name":"Neil Hanlon","url":"https:\/\/thepotato.tech\/"}}</script><link rel=canonical href=https://thepotato.tech/posts/kerberos-in-typescript/><link rel=icon type=image/svg+xml href=/favicon.svg><link rel=preload href=/fonts/CommitMono-700-Regular.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/SourceSerif4.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/main.min.83137fb8ee2c56c3166f759566534c10bdff4d08bb3ceaf9cc149336d5c4316f.css integrity="sha256-gxN/uO4sVsMWb3WVZlNMEL3/TQi7POr5zBSTNtXEMW8="><script>(function(){var e=localStorage.getItem("potato-theme");e&&document.documentElement.setAttribute("data-theme",e)})()</script><script async src=https://plausible.io/js/pa-DHFXh1won62Kks_jqKyU3.js></script><script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(e){plausible.o=e||{}},plausible.init()</script></head><body><a href=#main-content class=skip-link>Skip to content</a><nav class=navbar aria-label="Main navigation"><div class=navbar__inner><a href=/ class=navbar__logo aria-label="Neil Hanlon home"><img class=spud src=/favicon.svg alt aria-hidden=true width=24 height=24>
+<span>thepotato.tech</span>
+<span class=shrug aria-hidden=true>¯\_(ツ)_/¯</span>
+</a><button class=navbar__hamburger aria-label="Toggle navigation" aria-expanded=false id=nav-hamburger>
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="2" y1="5" x2="18" y2="5"/><line x1="2" y1="10" x2="18" y2="10"/><line x1="2" y1="15" x2="18" y2="15"/></svg></button><ul class=navbar__links id=nav-links role=list><li><a href=/posts/>posts</a></li><li><a href=/projects/>projects</a></li><li><a href=/resume/>resume</a></li><li><button class=theme-toggle id=theme-toggle aria-label="Toggle dark mode">
+<svg class="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<svg class="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<span class=sr-only>Toggle theme</span></button></li></ul></div></nav><script>(function(){var e,t,n=document.getElementById("theme-toggle");n&&n.addEventListener("click",function(){var t,n=document.documentElement,e=n.getAttribute("data-theme");e||(e=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),t=e==="dark"?"light":"dark",n.setAttribute("data-theme",t),localStorage.setItem("potato-theme",t)}),e=document.getElementById("nav-hamburger"),t=document.getElementById("nav-links"),e&&t&&e.addEventListener("click",function(){var n=t.classList.toggle("is-open");e.setAttribute("aria-expanded",n?"true":"false")})})()</script><main class=site-main id=main-content><article><div class=page-hero><div class=container><nav class=breadcrumb aria-label=Breadcrumb><a href=/>Home</a>
+<span aria-hidden=true>›</span>
+<a href=/posts/>Posts</a>
+<span aria-hidden=true>›</span>
+<span aria-current=page>I Violated the Geneva Conventions by Implementing Kerberos in TypeScript</span></nav><p class="page-hero__eyebrow eyebrow"><span class="dot dot--pulse" aria-hidden=true></span>
+~/posts</p><h1 class=page-hero__title>I Violated the Geneva Conventions by Implementing Kerberos in TypeScript</h1><p class=page-hero__subtitle>The FASJSON model only spoke Kerberos, so my swamp had to kinit. I got annoyed enough to reimplement the client half of GSSAPI in TypeScript with no subprocess, and then the immutable datastore started fighting back.</p><div class=page-hero__meta><time datetime=2026-08-01>August 1, 2026</time>
+<span aria-hidden=true>·</span>
+<span>9 min read</span></div></div></div><div class=section><div class=container><div class=prose><p>A couple weeks ago I shipped a <a href=https://thepotato.tech/posts/what-does-fedora-want-from-me-today/>swamp</a> workflow
+that tells me what Fedora wants from me on a given day. Three models fan out
+in parallel, pull bugs and builds and package state, and one command writes a
+markdown snapshot I can diff against last week&rsquo;s. It&rsquo;s the workflow I wanted,
+and it runs every time I have the spoons for it.</p><p>Two of the three models are pure <code>fetch</code>, and carry no external dependencies. The third isn&rsquo;t.
+The FASJSON service speaks <em>only</em> Kerberos/GSSAPI: every endpoint requires
+<code>WWW-Authenticate: Negotiate</code>, and there&rsquo;s no password or token fallback of any
+kind. The standard answer (the one every integration I&rsquo;ve ever seen uses) is to
+shell out: <code>kinit</code>, then <code>curl --negotiate</code>, and now your model depends on a
+subprocess, an ambient credential cache, and whether the machine happens to have
+krb5-workstation installed.</p><p>That&rsquo;s what my model did. It worked. It was also the only part of the whole
+build that felt like duct tape, and every time the workflow ran I could hear it.</p><p>I got annoyed enough to do something unreasonable about it. Fair warning: I
+didn&rsquo;t hand-write most of what comes next so much as specify it, argue with it,
+and try to break it. Keep that in mind. It turns out to be the point.</p><h2 id=why-not-just-shell-out>Why not just shell out?</h2><p>This isn&rsquo;t (just) an aesthetic complaint. Shelling out to <code>kinit</code> has real
+failure modes, and they&rsquo;re the kind that suck when it&rsquo;s 2am and you&rsquo;re
+half-asleep and the service is down again because someone (me) insisted on
+using kerberized postgresql but the ticket refresh failed.</p><p>The ambient <code>KRB5CCNAME</code> cache is shared mutable global state your model doesn&rsquo;t
+own. Two runs in parallel step on each other. A stale cache from a previous run
+silently authenticates as the wrong principal, and the failure mode is &ldquo;the API
+said no&rdquo; with no useful signal about why.</p><p>Moreover, it depends on host packages and PATH. The extension isn&rsquo;t
+self-contained anymore; it&rsquo;s a TypeScript file that happens to need
+krb5-workstation installed on the box. That breaks the model-is-the-dependency
+promise, and it means your CI Dockerfile needs a <code>RUN dnf install krb5-workstation</code> line that has nothing to do with your actual problem.</p><p>Credentials live outside swamp&rsquo;s vault and secret machinery. The password is in
+a vault, fine, but the moment it hits <code>kinit</code> it&rsquo;s in a file on disk that the
+datastore doesn&rsquo;t know about, can&rsquo;t version, can&rsquo;t rotate, can&rsquo;t tell you is
+there. That&rsquo;s state that only looks managed, which is arguably worse than none.</p><p>The thesis of this series is that modeling a system forces you to actually
+understand it. A subprocess lets you skip that.</p><h2 id=what-i-actually-built>What I actually built</h2><p>First, the honest version of &ldquo;I wrote Kerberos,&rdquo; because that phrasing is doing
+a lot of work. I did not type an ASN.1 DER encoder from memory. I said what I
+needed, a model produced most of the code, and I spent my time on the part I&rsquo;m
+actually good at: reading the spec like it owed me money, deciding what had to be
+constant-time, and trying to break the result until it stopped breaking.</p><p>That division of labor bothers some people. It stopped bothering me once I worked
+out why, and the why is narrow on purpose. A working crypto implementation is a
+bitstring: a client that either produces a valid AS-REQ or doesn&rsquo;t, either checks
+the MAC in constant time or leaks. For an object like that, the channel that
+emitted the bits is noise. What survives is whether they&rsquo;re correct, and
+correctness here is verifiable no matter who or what typed it. I can verify it.
+Verifying and breaking is the scarce skill; typing the DER never was.</p><p>I want to be careful with that, because &ldquo;the outcome is all that matters&rdquo; is how
+you talk yourself into genuinely bad things everywhere the outcome <em>isn&rsquo;t</em> the
+whole story. This is not that argument. It&rsquo;s the boring, bounded version: for a
+byte string whose correctness you can fully check against a spec, provenance
+carries no information the verification doesn&rsquo;t already recover. That&rsquo;s a claim
+about code, not about conduct.</p><p>So&mldr; scope: I didn&rsquo;t write a full Kerberos stack (insofar as <em>I</em> &ldquo;wrote&rdquo;
+anything.) It&rsquo;s just the client-initiator half of GSSAPI: AS-REQ/AS-REP to get
+a TGT, TGS-REQ/TGS-REP to mint a service ticket for a specific SPN, and SPNEGO
+wrap into the <code>Authorization: Negotiate</code> header. No <code>child_process</code>. No
+<code>krb5.h</code>. Just some <code>fetch</code>, a sprinkle of WebCrypto, and a bowl full of bytes.</p><p>The real crypto is there: aes256-cts-hmac-sha1 and aes256-cts-hmac-sha384 (the
+FIPS-relevant etypes), PBKDF2 string-to-key per RFC 3962, and &ldquo;hand&rdquo;-rolled DER
+encode/decode of the ASN.1 because no TypeScript ASN.1 library does the job
+without dragging in a universe of dependencies. I won&rsquo;t pretend that was fun. It
+was correct, which is the next best thing (probably).</p><p>The tests are the credibility, and balance out the obvious software war crimes
+under review. We&rsquo;ve got <em>all</em> the paranoid classics:</p><ul><li>RFC and NIST known-answer tests for the crypto layer: RFC 6070
+for PBKDF2, RFC 3962 intermediate outputs, exhaustive CTS padding lengths.</li><li>Every-byte tampering tests on the ciphertext.</li><li>Wrong-key, wrong-usage, and wrong-truncation tests that check the MAC
+actually rejects bad input instead of passing it through.</li><li>&ldquo;Hand&rdquo;-derived DER fixtures for the ASN.1 layer,
+so a regression in encoding shows up as a test failure instead of a
+KDC rejection at runtime.</li><li>Mock KDCs that do real crypto rather than return stubbed responses.</li></ul><p>And then gated live tests against the real KDCs in my lab, because the mock is only
+as good as the assumptions I made writing it.</p><p>The tally came to 176 tests in the end. Overkill&ndash;until a KDC sends back something the mock didn&rsquo;t
+predict and the suite already has a case for it.</p><p>And then&mldr; it worked. The same <code>fedora-attention</code> workflow from the last post, the
+one that used to shell out to <code>kinit</code>, now gets <code>groups:neil = 20</code> real groups
+back over a <code>Negotiate</code> header this very code minted. No kinit anywhere on the box.
+No ambient cache. No bet about whether krb5-workstation is installed.</p><h2 id=the-datastore-fought-back>The datastore fought back</h2><p>As <em>everyone</em> knows&mldr; (<em>ducks</em>), Kerberos credentials are short-lived, mutable
+secrets. But Swamp&rsquo;s datastore is <em>immutable</em> and versioned: every write kept
+forever. Those two facts do not want to be friends, and most of the hardening
+below is me negotiating the peace (with varying degrees of success.)</p><p>Session keys, tickets, and the SPNEGO header are all secret, but the first cut
+of this extension leaned on datastore-level encryption instead of swamp&rsquo;s
+own vault. Ew. Yuck. No plz.</p><p>The fix was field-level <code>sensitive</code> marking so only the truly-secret fields get
+vaulted (nested fields included) while non-secrets stay plaintext and
+debuggable. Of course, fixing the code wasn&rsquo;t enough: the store is immutable, so
+pre-fix runs had already written real tickets in cleartext into version
+history, and the code fix only covered new writes. An immutable store doesn&rsquo;t
+do &ldquo;erase that entire personal log,&rdquo; so I swept the history by hand too (and
+this time I really do mean by hand). Same &ldquo;data that lies by looking complete&rdquo;
+instinct as <a href=https://thepotato.tech/posts/i-put-my-son-in-a-swamp/>the baby post</a>: the
+snapshot said it was fine, and it wasn&rsquo;t.</p><p>The clanker decided to create credentials with <code>lifetime: infinite</code>, and
+<code>destroy</code> only removed the TGT, leaving minted service tickets behind in the
+datastore. I chose to bound the ccache and service tickets to 24 hours, and the
+SPNEGO header to 1 hour since it&rsquo;s the most exposed, and made teardown sweep
+everything via a per-principal ledger instead of deleting the root and hoping.</p><p>The rest isn&rsquo;t the datastore&rsquo;s fault, but I can&rsquo;t help myself from paranoid
+bugfixing on a good day, and we already had it up on the lift, so&mldr;</p><p>Constant-time MAC compare. The Kerberos integrity check is an HMAC, and comparing
+HMACs with <code>===</code> leaks timing an attacker can use to forge one. The fix is a
+single line — <code>crypto.subtle.timingSafeEqual</code> or a byte-by-byte accumulator — but
+I didn&rsquo;t think to write it until I&rsquo;d read the spec three times.</p><p>Bounded PBKDF2 iterations. A hostile KDC controls the iteration count through the
+RFC 3962 s2kparams field, and if you don&rsquo;t cap it you&rsquo;ll happily run for hours.
+The cap is 1,000,000 iterations, sub-second worst case at PBKDF2-HMAC-SHA1, and a
+legitimate KDC never exceeds the RFC default of 4096. The suite verifies that the
+cap rejects, the boundary computes, and zero iterations (which RFC 3962 says means
+2^32) gets rejected cleanly instead of hanging.</p><p>And lastly, the least-privilege bit, with a twist. I made <code>forwardable</code> and <code>renewable</code>
+opt-in, off by default, because that&rsquo;s what the spec says you should do. Then I
+found that FASJSON <em>requires</em> a forwardable ticket, because it delegates the user
+credential to bind IPA LDAP over SASL/GSSAPI. Turning it off broke it in exactly
+the way that teaches you what delegation is. The flag is still opt-in, but the
+error message when you forget it now says &ldquo;FASJSON needs forwardable tickets
+because it delegates to LDAP&rdquo; instead of &ldquo;nope.&rdquo;</p><p>A genuine platform bug fell out of this and got fixed upstream. swamp
+<a href=https://swamp-club.com/lab/1169>#1169</a> →
+<a href=https://github.com/swamp-club/swamp/pull/1866>PR #1866</a>: cross-run reads of a
+vaulted field returned the unresolved <code>${{ vault.get(...) }}</code> ref string instead
+of the resolved value, and per-instance vault keys collided when two models
+vaulted to the same slot. Mapping a real credential lifecycle onto the datastore
+is what surfaced it. I only caught it when I tried to cache a TGT across runs and
+the second run couldn&rsquo;t read what the first one wrote.</p><h2 id=the-bigger-question-underneath>The bigger question underneath</h2><p>Why did any of this matter beyond one stubborn Fedora endpoint? Because a fleet
+of swamp workers has FASJSON&rsquo;s problem one level up: how does a worker prove who
+it is? For a lot of systems the honest answer today is a bearer token plus a
+client-asserted machine id, a secret you copy around and hope nobody else gets.
+Which is the exact thing I just spent a week refusing to do for one API.</p><p>That&rsquo;s its own argument and it deserves its own room, so I wrote it up separately
+as <strong>&ldquo;From Bearer Tokens to Workload Identity&rdquo;</strong>: the design case for
+FreeIPA-backed worker principals, short-lived service tickets, and constrained
+delegation. It&rsquo;s the next post in this series, and will come out precisely when
+I mean it to (i.e., eventually.)</p><p>The short version: bearer tokens are what you use when you&rsquo;ve decided not to model
+identity. Kerberos is what modeling it looks like.</p><h2 id=try-it>Try it</h2><p><code>@kneel/krb5</code> is on the swamp registry (published <code>2026.07.16.2</code>). The honest
+paragraph on what it is and isn&rsquo;t: client-initiator GSSAPI, single AP-REQ, no
+mutual-auth or continuation yet. If you need a Kerberos client in TypeScript and
+you&rsquo;re already in swamp, it&rsquo;s there. If you need a full GSSAPI implementation with
+mutual auth and context continuation, this isn&rsquo;t it&mldr; yet.</p><p>The extension pulls the same way the others do:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>swamp extension pull @kneel/krb5
+</span></span></code></pre></div><p>A subprocess offended me and I replaced it with a few thousand lines I mostly
+didn&rsquo;t type. The tickets it mints are real either way, and that was the only
+thing that ever had to be true.</p><p>Until next time&mldr;</p><hr><p>This is what I do for money too, through <a href=https://shrugpw.com>Shrug PW</a>: making
+other people&rsquo;s operational queues legible. Fewer ham radio packages, usually.</p></div><div class=post-foot><span>Filed under swamp · kerberos · gssapi · fedora · fasjson · freeipa · typescript · security</span>
+<a href=/posts/>← All posts</a></div></div></div></article></main><footer class=footer aria-label="Site footer"><div class=footer__inner><p class=footer__note>Built with Hugo. No trackers, no popups, occasionally a typo left in on purpose.
+<span aria-hidden=true>¯\_(ツ)_/¯</span><br>&copy; 2026 Neil Hanlon.</p><div class=footer__links><a href=https://github.com/NeilHanlon rel="me noopener">github</a><a href=https://bsky.app/profile/shrug.pw rel="me noopener">bluesky</a>
+<a href=https://shrugpw.com rel=noopener>consulting</a>
+<a href=https://ko-fi.com/kneel rel=noopener>ko-fi</a></div></div></footer></body></html>

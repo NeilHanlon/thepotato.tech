@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>802.1x on Neil Hanlon</title><link>https://thepotato.tech/tags/802.1x/</link><description>Recent content in 802.1x on Neil Hanlon</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Fri, 10 Jul 2026 18:30:00 -0400</lastBuildDate><atom:link href="https://thepotato.tech/tags/802.1x/index.xml" rel="self" type="application/rss+xml"/><item><title>The WiFi Certificate That Didn't Exist an Hour Ago</title><link>https://thepotato.tech/posts/the-wifi-cert-that-didnt-exist-an-hour-ago/</link><pubDate>Fri, 10 Jul 2026 18:30:00 -0400</pubDate><guid>https://thepotato.tech/posts/the-wifi-cert-that-didnt-exist-an-hour-ago/</guid><description>&lt;p>My laptop is on WiFi right now on a certificate that didn&amp;rsquo;t exist an hour ago. I
+made the keypair, my own CA signed it, the private key went into my secret store,
+and the machine authenticated onto the 802.1X network and pulled a DHCP lease —
+all through code I&amp;rsquo;d finished writing about twenty minutes earlier. I want to
+talk about the boring part that made it safe, because the boring part is the only
+part I&amp;rsquo;d defend.&lt;/p></description></item></channel></rss>
