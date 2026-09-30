@@ -1,7 +1,7 @@
 ---
 title: "Wiring swamp's Traces Into My Own LGTM Stack"
 description: "swamp emits OTLP traces and logs natively. This is how I ship the traces through a Caddy auth gateway into Tempo and turn them into a RED dashboard I actually look at."
-date: 2026-09-18T16:29:00-04:00
+date: 2026-09-30T12:56:00-04:00
 slug: configuring-swamp-otel
 draft: false
 categories: ['automation', 'observability']

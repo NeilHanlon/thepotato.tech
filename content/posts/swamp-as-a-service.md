@@ -1,7 +1,7 @@
 ---
 title: "I Made swamp Deploy swamp"
 description: "I stood up 'swamp serve' as its own FreeIPA service account using nothing but swamp models. The tool configured the host that runs the tool, and then my own OAuth flow spent an afternoon trying to lock me out."
-date: 2026-09-18T16:29:00-04:00
+date: 2026-09-30T12:56:00-04:00
 slug: swamp-as-a-service
 draft: false
 categories: ['automation', 'infrastructure']
